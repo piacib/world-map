@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./worldMap.css";
 const countries = {
   AD: "Andorra",
@@ -271,29 +271,37 @@ const colorElement = (element: HTMLElement | null) => {
   }
   element.classList.add("highlight");
 };
+const removeColorFromElement = (element: HTMLElement | null) => {
+  if (element === null) {
+    return;
+  }
+  element.classList.remove("highlight");
+};
 const WorldMap = () => {
   const [selectedCountryId, setSelectedCountryId] = useState<null | string>(
     null
   );
-  // const handleStartClick = () => {
-  //   setClicked(!clicked);
-  //   setSelectedCountry(getRandomCountryName());
-  //   if (selectedCountry) {
-  //     executeScroll(document.getElementById("AF"));
-  //     colorElement(document.getElementById("AF"));
-  //   }
-  // };
-  const handleClick = () => {
+  const handleStartClick = () => {
     setSelectedCountryId(getRandomCountryID());
+  };
+  const handleClick = () => {
+    if (!selectedCountryId) {
+      return;
+    }
+    console.log("handleClick", selectedCountryId);
+    removeColorFromElement(document.getElementById(selectedCountryId));
+    setSelectedCountryId(getRandomCountryID());
+  };
+  useEffect(() => {
+    console.log("useEffect", selectedCountryId);
     if (selectedCountryId) {
       executeScroll(document.getElementById(selectedCountryId));
       colorElement(document.getElementById(selectedCountryId));
     }
-  };
+  }, [selectedCountryId]);
   return (
     <>
-      <button onClick={() => handleClick()}>New Country</button>
-      {/* {clicked === null && (
+      {!selectedCountryId ? (
         <button
           onClick={() => {
             handleStartClick();
@@ -301,7 +309,10 @@ const WorldMap = () => {
         >
           Start
         </button>
-      )} */}
+      ) : (
+        <button onClick={() => handleClick()}>New Country</button>
+      )}
+
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="-169.110266 83.600842 190.486279 -58.508473"
