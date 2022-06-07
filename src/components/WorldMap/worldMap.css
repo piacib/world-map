@@ -1,0 +1,13 @@
+path {
+  fill: grey;
+  stroke: black;
+  stroke-width: 0.1px;
+}
+.highlight {
+  fill: aqua;
+}
+
+button {
+  position: fixed;
+  top: 0;
+}
