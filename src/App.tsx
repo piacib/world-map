@@ -1,13 +1,10 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import WorldMap from "./WorldMap";
-// import Counter from "./Counter";
+import WorldMap from "./components/WorldMap/WorldMap";
 
 function App() {
   return (
     <>
-      {/* <Counter /> */}
       <WorldMap />
     </>
   );
