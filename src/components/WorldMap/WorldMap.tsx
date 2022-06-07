@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./worldMap.css";
-const countries = {
+type Countries = { [s: string]: string };
+const countries: Countries = {
   AD: "Andorra",
   AE: "United Arab Emirates",
   AF: "Afghanistan",
@@ -251,9 +252,9 @@ const countries = {
   ZM: "Zambia",
   ZW: "Zimbabwe",
 };
-const getRandomCountryID = () => {
-  const entries = Object.entries(countries);
-  return entries[Math.floor(Math.random() * entries.length - 1)][0];
+const getRandomKey = (obj: Object) => {
+  const keys = Object.keys(obj);
+  return keys[Math.floor(Math.random() * keys.length - 1)];
 };
 const executeScroll = (element: HTMLElement | null) => {
   if (element === null) {
@@ -281,16 +282,22 @@ const WorldMap = () => {
   const [selectedCountryId, setSelectedCountryId] = useState<null | string>(
     null
   );
+  const [unseenCountryList, setUnseenCountryList] =
+    useState<Countries>(countries);
   const handleStartClick = () => {
-    setSelectedCountryId(getRandomCountryID());
+    setSelectedCountryId(getRandomKey(unseenCountryList));
   };
   const handleClick = () => {
     if (!selectedCountryId) {
       return;
     }
-    console.log("handleClick", selectedCountryId);
+    console.log("handleClick", countries[selectedCountryId]);
+    const temp = unseenCountryList;
+    const country = getRandomKey(unseenCountryList);
+    delete temp[country];
+    setUnseenCountryList(temp);
     removeColorFromElement(document.getElementById(selectedCountryId));
-    setSelectedCountryId(getRandomCountryID());
+    setSelectedCountryId(country);
   };
   useEffect(() => {
     console.log("useEffect", selectedCountryId);
