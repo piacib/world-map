@@ -1,0 +1,24 @@
+.boxed {
+  position: sticky;
+  bottom: 0;
+  width: 10rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.boxed label {
+  display: inline-block;
+  width: fit-content;
+  padding: 10px;
+  border: solid 2px #ccc;
+  transition: all 0.3s;
+  background-color: white;
+}
+
+.boxed input[type="radio"] {
+  display: none;
+}
+
+.boxed input[type="radio"]:checked + label {
+  border: solid 2px green;
+}
