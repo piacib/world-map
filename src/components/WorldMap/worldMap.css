@@ -1,3 +1,9 @@
+:root {
+  --zoom-initial: 1;
+  --zoom-final: 3;
+  --zoom-large: 2;
+  --animation-speed: 1s;
+}
 path {
   fill: grey;
   stroke: black;
@@ -10,4 +16,58 @@ path {
 button {
   position: fixed;
   top: 0;
+}
+.space-adjustments {
+  padding-left: 1000px;
+  padding-top: 1000px;
+  padding: 1000px;
+}
+@keyframes Zoom {
+  from {
+    transform: scale(var(--zoom-initial));
+  }
+  to {
+    transform: scale(var(--zoom-final));
+  }
+}
+@keyframes startZoom {
+  from {
+    transform: scale(var(--zoom-initial));
+  }
+  to {
+    transform: scale(var(--zoom-final));
+  }
+}
+@keyframes largeCountryZoomOut {
+  from {
+    transform: scale(var(--zoom-final));
+  }
+  to {
+    transform: scale(var(--zoom-large));
+  }
+}
+@keyframes largeCountryZoomIn {
+  from {
+    transform: scale(var(--zoom-large));
+  }
+  to {
+    transform: scale(var(--zoom-final));
+  }
+}
+.map {
+  position: absolute;
+}
+.startZoom {
+  animation: startZoom 1s;
+  transform: scale(var(--zoom-final));
+}
+.large_country_zoom_out {
+  animation: largeCountryZoomOut 1s;
+  transform: scale(--zoom-final);
+}
+.large_country_zoom_in {
+  --zoom-initial: 3;
+  --zoom-final: 2;
+  animation: Zoom 1s;
+  transform: scale(var(--zoom-final));
 }
