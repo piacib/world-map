@@ -18,9 +18,9 @@ button {
   top: 0;
 }
 .space-adjustments {
-  padding-left: 1000px;
-  padding-top: 1000px;
-  padding: 1000px;
+  --padding: 500px;
+  padding-left: var(--padding);
+  padding-top: var(--padding);
 }
 @keyframes Zoom {
   from {
