@@ -9,16 +9,3 @@
   justify-content: center;
   border: 3px solid green;
 }
-.map-container svg {
-  position: absolute;
-  transform: scale(3);
-  padding: 1000px;
-}
-@keyframes startZoom {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(3);
-  }
-}

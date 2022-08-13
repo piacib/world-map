@@ -1,3 +1,9 @@
+:root {
+  --zoom-initial: 1;
+  --zoom-final: 3;
+  --zoom-large: 2;
+  --animation-speed: 1s;
+}
 path {
   fill: grey;
   stroke: black;
@@ -10,4 +16,74 @@ path {
 button {
   position: fixed;
   top: 0;
+}
+.space-adjustments {
+  --padding: 1000px;
+  padding-left: var(--padding);
+  padding-top: var(--padding);
+  padding: var(--padding);
+}
+@keyframes Zoom {
+  from {
+    transform: scale(var(--zoom-initial));
+  }
+  to {
+    transform: scale(var(--zoom-final));
+  }
+}
+@keyframes startZoom {
+  from {
+    transform: scale(var(--zoom-initial));
+  }
+  to {
+    transform: scale(var(--zoom-final));
+  }
+}
+@keyframes largeCountryZoomOut {
+  from {
+    transform: scale(var(--zoom-final));
+  }
+  to {
+    transform: scale(var(--zoom-large));
+  }
+}
+@keyframes largeCountryZoomIn {
+  from {
+    transform: scale(var(--zoom-large));
+  }
+  to {
+    transform: scale(var(--zoom-final));
+  }
+}
+.map {
+  position: absolute;
+}
+.startZoom {
+  animation: startZoom 1s;
+  transform: scale(var(--zoom-final));
+}
+.large_country_zoom_out {
+  animation: largeCountryZoomOut 1s;
+  transform: scale(--zoom-final);
+}
+.large_country_zoom_in {
+  --zoom-initial: 3;
+  --zoom-final: 2;
+  animation: Zoom 1s;
+  transform: scale(var(--zoom-final));
+}
+.map-container {
+  margin: 1.5rem auto 0;
+  width: 50rem;
+  height: 50rem;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid green;
+}
+p {
+  text-align: center;
+  margin: 0;
 }
