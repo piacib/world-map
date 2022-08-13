@@ -60,6 +60,7 @@ const WorldMap = () => {
       <div className="map-container">
         {!selectedCountryId ? (
           <button
+            className="start_button"
             onClick={() => {
               handleStartClick();
             }}
@@ -75,7 +76,9 @@ const WorldMap = () => {
           viewBox="-169.110266 83.600842 190.486279 -58.508473"
           width="1009.6727"
           height="665.96301"
-          className={`map space-adjustments ${zoomer(selectedCountryId)}`}
+          className={`map space-adjustments ${zoomer(selectedCountryId)} ${
+            !selectedCountryId ? "start_haze" : ""
+          }`}
         >
           {svgPaths.map((entry, index) => (
             <path

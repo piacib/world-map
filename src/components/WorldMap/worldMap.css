@@ -13,10 +13,6 @@ path {
   fill: aqua;
 }
 
-button {
-  position: fixed;
-  top: 0;
-}
 .space-adjustments {
   --padding: 1000px;
   padding-left: var(--padding);
@@ -86,4 +82,13 @@ button {
 p {
   text-align: center;
   margin: 0;
+}
+.start_button {
+  height: 2rem;
+  font-size: 1.4rem;
+  /* z-index: 7; */
+  position: relative;
+}
+.start_haze {
+  z-index: -1;
 }
