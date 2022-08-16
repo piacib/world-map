@@ -1,0 +1,9 @@
+.continent_options_menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.continent_options_menu li {
+  list-style: none;
+  padding: 0 10px;
+}
