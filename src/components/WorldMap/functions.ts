@@ -24,3 +24,20 @@ export const removeColorFromElement = (element: HTMLElement | null) => {
   }
   element.classList.remove("highlight");
 };
+const largeCountries = [""];
+const largeCountryCheck = (country: string) => {
+  if (largeCountries.includes(country)) {
+    return true;
+  }
+  return false;
+};
+
+const zoomer = (country: string | null): string => {
+  if (!country) {
+    return "";
+  }
+  if (largeCountryCheck(country)) {
+    return "large_country_zoom_in";
+  }
+  return "startZoom";
+};
