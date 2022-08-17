@@ -1,17 +1,6 @@
 import React from "react";
 import "./continentOptions.css";
-// custom continent type and options display. To add continent just add
-// continent to list
-const continents = [
-  "North America",
-  "South America",
-  "Europe",
-  "Africa",
-  "Asia",
-] as const;
-export type ContinentType = typeof continents[number];
-// type guard function to see if string is in continent
-const isContinent = (x: any): x is ContinentType => continents.includes(x);
+import { continents, ContinentType, isContinent } from "../../countries";
 interface Props {
   setOption: (option: ContinentType) => void;
 }
