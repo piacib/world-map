@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./worldMap.css";
-import { countries, Countries } from "./countries";
+import { countries, Countries } from "../../countries";
 import {
   getRandomKey,
   executeScroll,
@@ -8,23 +8,12 @@ import {
   removeColorFromElement,
 } from "./functions";
 import { svgPaths } from "./svg";
-const largeCountries = ["CA"];
-const largeCountryCheck = (country: string) => {
-  if (largeCountries.includes(country)) {
-    return true;
-  }
-  return false;
-};
-const zoomer = (country: string | null): string => {
-  if (!country) {
-    return "";
-  }
-  if (largeCountryCheck(country)) {
-    return "large_country_zoom_in";
-  }
-  return "startZoom";
-};
-const WorldMap = () => {
+import { ContinentType } from "../../countries";
+
+interface Props {
+  continent: ContinentType | null;
+}
+const WorldMap: React.FC<Props> = ({ continent }) => {
   const refs = useRef<SVGPathElement[]>([]);
   const [selectedCountryId, setSelectedCountryId] = useState<null | string>(
     null
@@ -33,7 +22,9 @@ const WorldMap = () => {
     useState<Countries>(countries);
   const handleStartClick = () => {
     setSelectedCountryId(getRandomKey(unseenCountryList));
+    setSelectedCountryId("CA");
   };
+
   const handleClick = () => {
     if (!selectedCountryId) {
       return;
@@ -45,7 +36,6 @@ const WorldMap = () => {
     setUnseenCountryList(temp);
     removeColorFromElement(document.getElementById(selectedCountryId));
     setSelectedCountryId(country);
-    // setSelectedCountryId("CA");
   };
   useEffect(() => {
     console.log("useEffect", selectedCountryId);
@@ -58,7 +48,7 @@ const WorldMap = () => {
   return (
     <>
       <div className="map-container">
-        {!selectedCountryId ? (
+        {!selectedCountryId && (
           <button
             className="start_button"
             onClick={() => {
@@ -67,16 +57,13 @@ const WorldMap = () => {
           >
             Start
           </button>
-        ) : (
-          <button onClick={() => handleClick()}>New Country</button>
         )}
-
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="-169.110266 83.600842 190.486279 -58.508473"
           width="1009.6727"
           height="665.96301"
-          className={`map space-adjustments ${zoomer(selectedCountryId)} ${
+          className={`map space-adjustments ${
             !selectedCountryId ? "start_haze" : ""
           }`}
         >
@@ -93,6 +80,10 @@ const WorldMap = () => {
           ))}
         </svg>
       </div>
+
+      {selectedCountryId && (
+        <button onClick={() => handleClick()}>New Country</button>
+      )}
       <p>{selectedCountryId ? selectedCountryId : "no id"}</p>
       <p>
         {selectedCountryId && countries[selectedCountryId]
