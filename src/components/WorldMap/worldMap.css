@@ -5,19 +5,16 @@
   --animation-speed: 1s;
 }
 path {
-  fill: grey;
+  fill: rgb(190, 189, 189);
   stroke: black;
   stroke-width: 0.1px;
 }
 .highlight {
-  fill: aqua;
+  fill: black;
 }
 
 .space-adjustments {
-  --padding: 1000px;
-  padding-left: var(--padding);
-  padding-top: var(--padding);
-  padding: var(--padding);
+  margin: 3000px;
 }
 @keyframes Zoom {
   from {
@@ -53,6 +50,7 @@ path {
 }
 .map {
   position: absolute;
+  transform: scale(3);
 }
 .startZoom {
   animation: startZoom 1s;
@@ -91,4 +89,8 @@ p {
 }
 .start_haze {
   z-index: -1;
+  opacity: 0.2;
+}
+.north_america {
+  transform: scale(2.5) translate(340px, 40px);
 }
