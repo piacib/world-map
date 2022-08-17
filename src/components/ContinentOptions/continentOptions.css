@@ -6,4 +6,5 @@
 .continent_options_menu li {
   list-style: none;
   padding: 0 10px;
+  cursor: pointer;
 }
