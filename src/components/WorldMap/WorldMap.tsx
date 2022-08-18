@@ -1,61 +1,97 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./worldMap.css";
-import { countries, Countries } from "../../countries";
 import {
   getRandomKey,
-  executeScroll,
+  // executeScroll,
   colorElement,
   removeColorFromElement,
 } from "./functions";
-import { svgPaths } from "./svg";
-import { ContinentType } from "../../countries";
-
+import { svgPaths } from "../../svg";
+import {
+  Countries,
+  ContinentType,
+  countriesByContinentId,
+} from "../../countries";
+type ContinentToCssType = { [K in ContinentType]: string };
+const continentToCss: ContinentToCssType = {
+  "North America": "north_america",
+  "South America": "south_america",
+  Europe: "europe",
+  Africa: "africa",
+  Asia: "asia",
+  Oceania: "oceania",
+};
 interface Props {
   continent: ContinentType | null;
 }
+type SelectedCountryType = {
+  name: string;
+  id: string;
+};
 const WorldMap: React.FC<Props> = ({ continent }) => {
-  const refs = useRef<SVGPathElement[]>([]);
-  const [selectedCountryId, setSelectedCountryId] = useState<null | string>(
+  const [selectedCountry, setSelectedCountry] =
+    useState<null | SelectedCountryType>(null);
+  const [unseenCountryList, setUnseenCountryList] = useState<Countries | null>(
     null
   );
-  const [unseenCountryList, setUnseenCountryList] =
-    useState<Countries>(countries);
+  // sets first selected country
   const handleStartClick = () => {
-    setSelectedCountryId(getRandomKey(unseenCountryList));
-    setSelectedCountryId("CA");
+    if (unseenCountryList) {
+      const randomKey = getRandomKey(unseenCountryList);
+      setSelectedCountry({ name: randomKey, id: unseenCountryList[randomKey] });
+    }
   };
-
+  // sets country list on continent select
+  useEffect(() => {
+    if (continent) {
+      setUnseenCountryList(countriesByContinentId[continent]);
+    }
+  }, [continent]);
   const handleClick = () => {
-    if (!selectedCountryId) {
+    if (!selectedCountry) {
       return;
     }
-    console.log("handleClick", countries[selectedCountryId]);
-    const temp = unseenCountryList;
-    const country = getRandomKey(unseenCountryList);
-    delete temp[country];
-    setUnseenCountryList(temp);
-    removeColorFromElement(document.getElementById(selectedCountryId));
-    setSelectedCountryId(country);
+    if (unseenCountryList) {
+      const name = getRandomKey(unseenCountryList);
+      setUnseenCountryList((current) => {
+        const copy = { ...current };
+        delete copy[name];
+        return copy;
+      });
+      if (selectedCountry) {
+        removeColorFromElement(document.getElementById(selectedCountry.id));
+      }
+      setSelectedCountry({ name: name, id: unseenCountryList[name] });
+    }
   };
   useEffect(() => {
-    console.log("useEffect", selectedCountryId);
-    if (selectedCountryId) {
-      executeScroll(document.getElementById(selectedCountryId));
-      colorElement(document.getElementById(selectedCountryId));
+    if (selectedCountry) {
+      colorElement(document.getElementById(selectedCountry.id));
     }
-  }, [selectedCountryId]);
-  console.log(refs);
+  }, [selectedCountry]);
   return (
     <>
       <div className="map-container">
-        {!selectedCountryId && (
+        {Boolean(continent) ? (
+          !selectedCountry && (
+            <button
+              className="start_button"
+              onClick={() => {
+                handleStartClick();
+              }}
+            >
+              Start
+            </button>
+          )
+        ) : (
           <button
             className="start_button"
             onClick={() => {
               handleStartClick();
             }}
+            disabled
           >
-            Start
+            Select A Continent Above
           </button>
         )}
         <svg
@@ -63,33 +99,20 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
           viewBox="-169.110266 83.600842 190.486279 -58.508473"
           width="1009.6727"
           height="665.96301"
-          className={`map space-adjustments ${
-            !selectedCountryId ? "start_haze" : ""
-          }`}
+          className={`map space_adjustments ${
+            continent ? continentToCss[continent] : ""
+          } ${!selectedCountry ? "start_haze" : ""}`}
         >
           {svgPaths.map((entry, index) => (
-            <path
-              d={entry.d}
-              id={entry.id}
-              ref={(element) => {
-                if (element) {
-                  refs.current[index] = element;
-                }
-              }}
-            />
+            <path d={entry.d} id={entry.id} />
           ))}
         </svg>
       </div>
-
-      {selectedCountryId && (
+      {selectedCountry && (
         <button onClick={() => handleClick()}>New Country</button>
       )}
-      <p>{selectedCountryId ? selectedCountryId : "no id"}</p>
-      <p>
-        {selectedCountryId && countries[selectedCountryId]
-          ? countries[selectedCountryId]
-          : "no country"}
-      </p>
+      <p>{selectedCountry ? selectedCountry.id : "no id"}</p>
+      <p>{selectedCountry && selectedCountry.name}</p>
     </>
   );
 };
