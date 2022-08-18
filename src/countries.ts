@@ -1,255 +1,5 @@
-export type Countries = { [s: string]: string };
-export const countries: Countries = {
-  AD: "Andorra",
-  AE: "United Arab Emirates",
-  AF: "Afghanistan",
-  AG: "Antigua and Barbuda",
-  AI: "Anguilla",
-  AL: "Albania",
-  AM: "Armenia",
-  AO: "Angola",
-  AQ: "Antarctica",
-  AR: "Argentina",
-  AS: "American Samoa",
-  AT: "Austria",
-  AU: "Australia",
-  AW: "Aruba",
-  AX: "Åland Islands",
-  AZ: "Azerbaijan",
-  BA: "Bosnia and Herzegovina",
-  BB: "Barbados",
-  BD: "Bangladesh",
-  BE: "Belgium",
-  BF: "Burkina Faso",
-  BG: "Bulgaria",
-  BH: "Bahrain",
-  BI: "Burundi",
-  BJ: "Benin",
-  BL: "Saint Barthélemy",
-  BM: "Bermuda",
-  BN: "Brunei Darussalam",
-  BO: "Bolivia (Plurinational State of)",
-  BQ: "Bonaire, Sint Eustatius and Saba",
-  BR: "Brazil",
-  BS: "Bahamas",
-  BT: "Bhutan",
-  BV: "Bouvet Island",
-  BW: "Botswana",
-  BY: "Belarus",
-  BZ: "Belize",
-  CA: "Canada",
-  CC: "Cocos (Keeling) Islands",
-  CD: "Congo, Democratic Republic of the",
-  CF: "Central African Republic",
-  CG: "Congo",
-  CH: "Switzerland",
-  CI: "Côte d'Ivoire",
-  CK: "Cook Islands",
-  CL: "Chile",
-  CM: "Cameroon",
-  CN: "China",
-  CO: "Colombia",
-  CR: "Costa Rica",
-  CU: "Cuba",
-  CV: "Cabo Verde",
-  CW: "Curaçao",
-  CX: "Christmas Island",
-  CY: "Cyprus",
-  CZ: "Czechia",
-  DE: "Germany",
-  DJ: "Djibouti",
-  DK: "Denmark",
-  DM: "Dominica",
-  DO: "Dominican Republic",
-  DZ: "Algeria",
-  EC: "Ecuador",
-  EE: "Estonia",
-  EG: "Egypt",
-  EH: "Western Sahara",
-  ER: "Eritrea",
-  ES: "Spain",
-  ET: "Ethiopia",
-  FI: "Finland",
-  FJ: "Fiji",
-  FK: "Falkland Islands (Malvinas)",
-  FM: "Micronesia (Federated States of)",
-  FO: "Faroe Islands",
-  FR: "France",
-  GA: "Gabon",
-  GB: "United Kingdom of Great Britain and Northern Ireland",
-  GD: "Grenada",
-  GE: "Georgia",
-  GF: "French Guiana",
-  GG: "Guernsey",
-  GH: "Ghana",
-  GI: "Gibraltar",
-  GL: "Greenland",
-  GM: "Gambia",
-  GN: "Guinea",
-  GP: "Guadeloupe",
-  GQ: "Equatorial Guinea",
-  GR: "Greece",
-  GS: "South Georgia and the South Sandwich Islands",
-  GT: "Guatemala",
-  GU: "Guam",
-  GW: "Guinea-Bissau",
-  GY: "Guyana",
-  HK: "Hong Kong",
-  HM: "Heard Island and McDonald Islands",
-  HN: "Honduras",
-  HR: "Croatia",
-  HT: "Haiti",
-  HU: "Hungary",
-  ID: "Indonesia",
-  IE: "Ireland",
-  IL: "Israel",
-  IM: "Isle of Man",
-  IN: "India",
-  IO: "British Indian Ocean Territory",
-  IQ: "Iraq",
-  IR: "Iran (Islamic Republic of)",
-  IS: "Iceland",
-  IT: "Italy",
-  JE: "Jersey",
-  JM: "Jamaica",
-  JO: "Jordan",
-  JP: "Japan",
-  KE: "Kenya",
-  KG: "Kyrgyzstan",
-  KH: "Cambodia",
-  KI: "Kiribati",
-  KM: "Comoros",
-  KN: "Saint Kitts and Nevis",
-  KP: "Korea (Democratic People's Republic of)",
-  KR: "Korea, Republic of",
-  KW: "Kuwait",
-  KY: "Cayman Islands",
-  KZ: "Kazakhstan",
-  LA: "Lao People's Democratic Republic",
-  LB: "Lebanon",
-  LC: "Saint Lucia",
-  LI: "Liechtenstein",
-  LK: "Sri Lanka",
-  LR: "Liberia",
-  LS: "Lesotho",
-  LT: "Lithuania",
-  LU: "Luxembourg",
-  LV: "Latvia",
-  LY: "Libya",
-  MA: "Morocco",
-  MC: "Monaco",
-  MD: "Moldova, Republic of",
-  ME: "Montenegro",
-  MF: "Saint Martin (French part)",
-  MG: "Madagascar",
-  MH: "Marshall Islands",
-  MK: "North Macedonia",
-  ML: "Mali",
-  MM: "Myanmar",
-  MN: "Mongolia",
-  MO: "Macao",
-  MP: "Northern Mariana Islands",
-  MQ: "Martinique",
-  MR: "Mauritania",
-  MS: "Montserrat",
-  MT: "Malta",
-  MU: "Mauritius",
-  MV: "Maldives",
-  MW: "Malawi",
-  MX: "Mexico",
-  MY: "Malaysia",
-  MZ: "Mozambique",
-  NA: "Namibia",
-  NC: "New Caledonia",
-  NE: "Niger",
-  NF: "Norfolk Island",
-  NG: "Nigeria",
-  NI: "Nicaragua",
-  NL: "Netherlands",
-  NO: "Norway",
-  NP: "Nepal",
-  NR: "Nauru",
-  NU: "Niue",
-  NZ: "New Zealand",
-  OM: "Oman",
-  PA: "Panama",
-  PE: "Peru",
-  PF: "French Polynesia",
-  PG: "Papua New Guinea",
-  PH: "Philippines",
-  PK: "Pakistan",
-  PL: "Poland",
-  PM: "Saint Pierre and Miquelon",
-  PN: "Pitcairn",
-  PR: "Puerto Rico",
-  PS: "Palestine, State of",
-  PT: "Portugal",
-  PW: "Palau",
-  PY: "Paraguay",
-  QA: "Qatar",
-  RE: "Réunion",
-  RO: "Romania",
-  RS: "Serbia",
-  RU: "Russian Federation",
-  RW: "Rwanda",
-  SA: "Saudi Arabia",
-  SB: "Solomon Islands",
-  SC: "Seychelles",
-  SD: "Sudan",
-  SE: "Sweden",
-  SG: "Singapore",
-  SH: "Saint Helena, Ascension and Tristan da Cunha",
-  SI: "Slovenia",
-  SJ: "Svalbard and Jan Mayen",
-  SK: "Slovakia",
-  SL: "Sierra Leone",
-  SM: "San Marino",
-  SN: "Senegal",
-  SO: "Somalia",
-  SR: "Suriname",
-  SS: "South Sudan",
-  ST: "Sao Tome and Principe",
-  SV: "El Salvador",
-  SX: "Sint Maarten (Dutch part)",
-  SY: "Syrian Arab Republic",
-  SZ: "Eswatini",
-  TC: "Turks and Caicos Islands",
-  TD: "Chad",
-  TF: "French Southern Territories",
-  TG: "Togo",
-  TH: "Thailand",
-  TJ: "Tajikistan",
-  TK: "Tokelau",
-  TL: "Timor-Leste",
-  TM: "Turkmenistan",
-  TN: "Tunisia",
-  TO: "Tonga",
-  TR: "Turkey",
-  TT: "Trinidad and Tobago",
-  TV: "Tuvalu",
-  TW: "Taiwan, Province of China",
-  TZ: "Tanzania, United Republic of",
-  UA: "Ukraine",
-  UG: "Uganda",
-  UM: "United States Minor Outlying Islands",
-  US: "United States of America",
-  UY: "Uruguay",
-  UZ: "Uzbekistan",
-  VA: "Holy See",
-  VC: "Saint Vincent and the Grenadines",
-  VE: "Venezuela (Bolivarian Republic of)",
-  VG: "Virgin Islands (British)",
-  VI: "Virgin Islands (U.S.)",
-  VN: "Viet Nam",
-  VU: "Vanuatu",
-  WF: "Wallis and Futuna",
-  WS: "Samoa",
-  YE: "Yemen",
-  YT: "Mayotte",
-  ZA: "South Africa",
-  ZM: "Zambia",
-  ZW: "Zimbabwe",
-};
+import { CountryCodeType } from "./svg";
+
 // custom continent type and options display. To add continent just add
 // continent to list
 export const continents = [
@@ -265,439 +15,443 @@ export type ContinentType = typeof continents[number];
 export const isContinent = (x: any): x is ContinentType =>
   continents.includes(x);
 
-// export const europe = [
-//   "Albania",
-//   "Andorra",
-//   "Austria",
-//   "Belarus",
-//   "Belgium",
-//   "Bosnia and Herzegovina",
-//   "Bulgaria",
-//   "Croatia",
-//   "Cyprus",
-//   "Czech Republic",
-//   "Denmark",
-//   "Estonia",
-//   "Finland",
-//   "France",
-//   "Georgia",
-//   "Germany",
-//   "Greece",
-//   "Hungary",
-//   "Iceland",
-//   "Ireland",
-//   "Italy",
-//   "Kosovo",
-//   "Latvia",
-//   "Liechtenstein",
-//   "Lithuania",
-//   "Luxembourg",
-//   "North Macedonia",
-//   "Malta",
-//   "Moldova",
-//   "Monaco",
-//   "Montenegro",
-//   "Netherlands",
-//   "Norway",
-//   "Poland",
-//   "Portugal",
-//   "Romania",
-//   "Russia",
-//   "San Marino",
-//   "Serbia",
-//   "Slovakia",
-//   "Slovenia",
-//   "Spain",
-//   "Sweden",
-//   "Switzerland",
-//   "Turkey",
-//   "Ukraine",
-//   "United Kingdom",
-//   "Vatican City",
-// ];
-// export const africa = [
-//   "Algeria",
-//   "Angola",
-//   "Benin",
-//   "Botswana",
-//   "Burkina Faso",
-//   "Burundi",
-//   "Cameroon",
-//   "Cape Verde",
-//   "Central African Republic",
-//   "Chad",
-//   "Comoros",
-//   "Republic of Congo",
-//   "Democratic Republic of Congo",
-//   "Côte d'Ivoire",
-//   "Djibouti",
-//   "Equatorial Guinea",
-//   "Egypt",
-//   "Eritrea",
-//   "Ethiopia",
-//   "Gabon",
-//   "Gambia",
-//   "Ghana",
-//   "Guinea",
-//   "Kenya",
-//   "Lesotho",
-//   "Liberia",
-//   "Libya",
-//   "Madagascar",
-//   "Malawi",
-//   "Mali",
-//   "Mauritania",
-//   "Mauritius",
-//   "Morocco",
-//   "Mozambique",
-//   "Namibia",
-//   "Niger",
-//   "Nigeria",
-//   "Reunion",
-//   "Rwanda",
-//   "Sao Tome and Principe",
-//   "Senegal",
-//   "Seychelles",
-//   "Sierra Leone",
-//   "Somalia",
-//   "South Africa",
-//   "South Sudan",
-//   "Sudan",
-//   "Swaziland",
-//   "Tanzania",
-//   "Togo",
-//   "Tunisia",
-//   "Uganda",
-//   "Western Sahara",
-//   "Zambia",
-//   "Zimbabwe",
-// ];
-// export const asia = [
-//   "Afghanistan",
-//   "Armenia",
-//   "Azerbaijan",
-//   "Bahrain",
-//   "Bangladesh",
-//   "Bhutan",
-//   "Brunei",
-//   "Cambodia",
-//   "China",
-//   "Timor-Leste",
-//   "Georgia",
-//   "India",
-//   "Indonesia",
-//   "Iran",
-//   "Iraq",
-//   "Israel",
-//   "Japan",
-//   "Jordan",
-//   "Kazakhstan",
-//   "Kuwait",
-//   "Kyrgyzstan",
-//   "Laos",
-//   "Lebanon",
-//   "Malaysia",
-//   "Maldives",
-//   "Mongolia",
-//   "Myanmar",
-//   "Nepal",
-//   "North Korea",
-//   "Oman",
-//   "Pakistan",
-//   "Palestine",
-//   "Philippines",
-//   "Qatar",
-//   "Russia",
-//   "Saudi Arabia",
-//   "Singapore",
-//   "South Korea",
-//   "Sri Lanka",
-//   "Syria",
-//   "Tajikistan",
-//   "Thailand",
-//   "Turkey",
-//   "Turkmenistan",
-//   "Taiwan",
-//   "United Arab Emirates",
-//   "Uzbekistan",
-//   "Vietnam",
-//   "Yemen",
-// ];
-// export const northAmerica = [
-//   "Canada",
-//   "Mexico",
-//   "United States",
-//   "Puerto Rico",
-//   "US Virgin Islands",
-//   "Dominican Republic",
-//   "Cuba",
-//   "Haiti",
-//   "Belize",
-//   "Costa Rica",
-//   "El Salvador",
-//   "Guatemala",
-//   "Honduras",
-//   "Guadeloupe",
-//   "Martinique",
-//   "Nicaragua",
-//   "Panama",
-//   "Jamaica",
-//   "Bahamas",
-//   "Barbados",
-//   "Dominica",
-// ];
-// export const southAmerica = [
-//   "Brazil",
-//   "Argentina",
-//   "Bolivia",
-//   "Chile",
-//   "Colombia",
-//   "Ecuador",
-//   "Falkland Islands",
-//   "French Guiana",
-//   "Guyana",
-//   "Paraguay",
-//   "Peru",
-//   "South Georgia and the South Sandwich Islands",
-//   "Suriname",
-//   "Trinidad and Tobago",
-//   "Uruguay",
-//   "Venezuela",
-// ];
-// export const oceania = [
-//   "Australia",
-//   "Fiji",
-//   "New Zealand",
-//   "Federated States of Micronesia",
-//   "Kiribati",
-//   "Marshall Islands",
-//   "Nauru",
-//   "Palau",
-//   "Papua New Guinea",
-//   "Samoa",
-//   "Solomon Islands",
-//   "Tonga",
-//   "Tuvalu",
-//   "Vanuatu",
-// ];
+export interface Countries {
+  [key: string]: string;
+}
+export type EuropeKeys =
+  | "Albania"
+  | "Andorra"
+  | "Austria"
+  | "Belarus"
+  | "Belgium"
+  | "Bosnia and Herzegovina"
+  | "Bulgaria"
+  | "Croatia"
+  | "Cyprus"
+  | "Czech Republic"
+  | "Denmark"
+  | "Estonia"
+  | "Finland"
+  | "France"
+  | "Georgia"
+  | "Germany"
+  | "Greece"
+  | "Hungary"
+  | "Iceland"
+  | "Ireland"
+  | "Italy"
+  | "Kosovo"
+  | "Latvia"
+  | "Liechtenstein"
+  | "Lithuania"
+  | "Luxembourg"
+  | "North Macedonia"
+  | "Malta"
+  | "Moldova"
+  | "Monaco"
+  | "Montenegro"
+  | "Netherlands"
+  | "Norway"
+  | "Poland"
+  | "Portugal"
+  | "Romania"
+  | "Russia"
+  | "San Marino"
+  | "Serbia"
+  | "Slovakia"
+  | "Slovenia"
+  | "Spain"
+  | "Sweden"
+  | "Switzerland"
+  | "Turkey"
+  | "Ukraine"
+  | "United Kingdom"
+  | "Vatican City";
+export type NorthAmericaKeys =
+  | "Canada"
+  | "Mexico"
+  | "United States"
+  | "Puerto Rico"
+  | "US Virgin Islands"
+  | "Dominican Republic"
+  | "Cuba"
+  | "Haiti"
+  | "Belize"
+  | "Costa Rica"
+  | "El Salvador"
+  | "Guatemala"
+  | "Honduras"
+  | "Guadeloupe"
+  | "Martinique"
+  | "Nicaragua"
+  | "Panama"
+  | "Jamaica"
+  | "Bahamas"
+  | "Barbados"
+  | "Dominica";
 
+export type AsiaKeys =
+  | "Afghanistan"
+  | "Armenia"
+  | "Azerbaijan"
+  | "Bahrain"
+  | "Bangladesh"
+  | "Bhutan"
+  | "Brunei"
+  | "Cambodia"
+  | "China"
+  | "Timor-Leste"
+  | "Georgia"
+  | "India"
+  | "Indonesia"
+  | "Iran"
+  | "Iraq"
+  | "Israel"
+  | "Japan"
+  | "Jordan"
+  | "Kazakhstan"
+  | "Kuwait"
+  | "Kyrgyzstan"
+  | "Laos"
+  | "Lebanon"
+  | "Malaysia"
+  | "Maldives"
+  | "Mongolia"
+  | "Myanmar"
+  | "Nepal"
+  | "North Korea"
+  | "Oman"
+  | "Pakistan"
+  | "Palestine"
+  | "Philippines"
+  | "Qatar"
+  | "Russia"
+  | "Saudi Arabia"
+  | "Singapore"
+  | "South Korea"
+  | "Sri Lanka"
+  | "Syria"
+  | "Tajikistan"
+  | "Thailand"
+  | "Turkey"
+  | "Turkmenistan"
+  | "Taiwan"
+  | "United Arab Emirates"
+  | "Uzbekistan"
+  | "Vietnam"
+  | "Yemen";
+
+export type OceaniaKeys =
+  | "Australia"
+  | "Fiji"
+  | "New Zealand"
+  | "Federated States of Micronesia"
+  | "Kiribati"
+  | "Marshall Islands"
+  | "Nauru"
+  | "Palau"
+  | "Papua New Guinea"
+  | "Samoa"
+  | "Solomon Islands"
+  | "Tonga"
+  | "Tuvalu"
+  | "Vanuatu";
+export type SouthAmericaKeys =
+  | "Brazil"
+  | "Argentina"
+  | "Bolivia"
+  | "Chile"
+  | "Colombia"
+  | "Ecuador"
+  | "Falkland Islands"
+  | "French Guiana"
+  | "Guyana"
+  | "Paraguay"
+  | "Peru"
+  | "South Georgia and the South Sandwich Islands"
+  | "Suriname"
+  | "Trinidad and Tobago"
+  | "Uruguay"
+  | "Venezuela";
+export type AfricaKeys =
+  | "Algeria"
+  | "Angola"
+  | "Benin"
+  | "Botswana"
+  | "Burkina Faso"
+  | "Burundi"
+  | "Cameroon"
+  | "Cape Verde"
+  | "Central African Republic"
+  | "Chad"
+  | "Comoros"
+  | "Republic of Congo"
+  | "Democratic Republic of Congo"
+  | "Côte d'Ivoire"
+  | "Djibouti"
+  | "Equatorial Guinea"
+  | "Egypt"
+  | "Eritrea"
+  | "Ethiopia"
+  | "Gabon"
+  | "Gambia"
+  | "Ghana"
+  | "Guinea"
+  | "Kenya"
+  | "Lesotho"
+  | "Liberia"
+  | "Libya"
+  | "Madagascar"
+  | "Malawi"
+  | "Mali"
+  | "Mauritania"
+  | "Mauritius"
+  | "Morocco"
+  | "Mozambique"
+  | "Namibia"
+  | "Niger"
+  | "Nigeria"
+  | "Reunion"
+  | "Rwanda"
+  | "Sao Tome and Principe"
+  | "Senegal"
+  | "Seychelles"
+  | "Sierra Leone"
+  | "Somalia"
+  | "South Africa"
+  | "South Sudan"
+  | "Sudan"
+  | "Swaziland"
+  | "Tanzania"
+  | "Togo"
+  | "Tunisia"
+  | "Uganda"
+  | "Western Sahara"
+  | "Zambia"
+  | "Zimbabwe";
 type CountriesByContinentType = {
-  [K in ContinentType]: string[];
+  "North America": { [K in NorthAmericaKeys]: CountryCodeType };
+  "South America": { [K in SouthAmericaKeys]: CountryCodeType };
+  Europe: { [K in EuropeKeys]: CountryCodeType };
+  Africa: { [K in AfricaKeys]: CountryCodeType };
+  Asia: { [K in AsiaKeys]: CountryCodeType };
+  Oceania: { [K in OceaniaKeys]: CountryCodeType };
 };
-export const countriesByContinent: CountriesByContinentType = {
-  Europe: [
-    "Albania",
-    "Andorra",
-    "Austria",
-    "Belarus",
-    "Belgium",
-    "Bosnia and Herzegovina",
-    "Bulgaria",
-    "Croatia",
-    "Cyprus",
-    "Czech Republic",
-    "Denmark",
-    "Estonia",
-    "Finland",
-    "France",
-    "Georgia",
-    "Germany",
-    "Greece",
-    "Hungary",
-    "Iceland",
-    "Ireland",
-    "Italy",
-    "Kosovo",
-    "Latvia",
-    "Liechtenstein",
-    "Lithuania",
-    "Luxembourg",
-    "North Macedonia",
-    "Malta",
-    "Moldova",
-    "Monaco",
-    "Montenegro",
-    "Netherlands",
-    "Norway",
-    "Poland",
-    "Portugal",
-    "Romania",
-    "Russia",
-    "San Marino",
-    "Serbia",
-    "Slovakia",
-    "Slovenia",
-    "Spain",
-    "Sweden",
-    "Switzerland",
-    "Turkey",
-    "Ukraine",
-    "United Kingdom",
-    "Vatican City",
-  ],
-  Africa: [
-    "Algeria",
-    "Angola",
-    "Benin",
-    "Botswana",
-    "Burkina Faso",
-    "Burundi",
-    "Cameroon",
-    "Cape Verde",
-    "Central African Republic",
-    "Chad",
-    "Comoros",
-    "Republic of Congo",
-    "Democratic Republic of Congo",
-    "Côte d'Ivoire",
-    "Djibouti",
-    "Equatorial Guinea",
-    "Egypt",
-    "Eritrea",
-    "Ethiopia",
-    "Gabon",
-    "Gambia",
-    "Ghana",
-    "Guinea",
-    "Kenya",
-    "Lesotho",
-    "Liberia",
-    "Libya",
-    "Madagascar",
-    "Malawi",
-    "Mali",
-    "Mauritania",
-    "Mauritius",
-    "Morocco",
-    "Mozambique",
-    "Namibia",
-    "Niger",
-    "Nigeria",
-    "Reunion",
-    "Rwanda",
-    "Sao Tome and Principe",
-    "Senegal",
-    "Seychelles",
-    "Sierra Leone",
-    "Somalia",
-    "South Africa",
-    "South Sudan",
-    "Sudan",
-    "Swaziland",
-    "Tanzania",
-    "Togo",
-    "Tunisia",
-    "Uganda",
-    "Western Sahara",
-    "Zambia",
-    "Zimbabwe",
-  ],
-  Asia: [
-    "Afghanistan",
-    "Armenia",
-    "Azerbaijan",
-    "Bahrain",
-    "Bangladesh",
-    "Bhutan",
-    "Brunei",
-    "Cambodia",
-    "China",
-    "Timor-Leste",
-    "Georgia",
-    "India",
-    "Indonesia",
-    "Iran",
-    "Iraq",
-    "Israel",
-    "Japan",
-    "Jordan",
-    "Kazakhstan",
-    "Kuwait",
-    "Kyrgyzstan",
-    "Laos",
-    "Lebanon",
-    "Malaysia",
-    "Maldives",
-    "Mongolia",
-    "Myanmar",
-    "Nepal",
-    "North Korea",
-    "Oman",
-    "Pakistan",
-    "Palestine",
-    "Philippines",
-    "Qatar",
-    "Russia",
-    "Saudi Arabia",
-    "Singapore",
-    "South Korea",
-    "Sri Lanka",
-    "Syria",
-    "Tajikistan",
-    "Thailand",
-    "Turkey",
-    "Turkmenistan",
-    "Taiwan",
-    "United Arab Emirates",
-    "Uzbekistan",
-    "Vietnam",
-    "Yemen",
-  ],
-  "North America": [
-    "Canada",
-    "Mexico",
-    "United States",
-    "Puerto Rico",
-    "US Virgin Islands",
-    "Dominican Republic",
-    "Cuba",
-    "Haiti",
-    "Belize",
-    "Costa Rica",
-    "El Salvador",
-    "Guatemala",
-    "Honduras",
-    "Guadeloupe",
-    "Martinique",
-    "Nicaragua",
-    "Panama",
-    "Jamaica",
-    "Bahamas",
-    "Barbados",
-    "Dominica",
-  ],
-  "South America": [
-    "Brazil",
-    "Argentina",
-    "Bolivia",
-    "Chile",
-    "Colombia",
-    "Ecuador",
-    "Falkland Islands",
-    "French Guiana",
-    "Guyana",
-    "Paraguay",
-    "Peru",
-    "South Georgia and the South Sandwich Islands",
-    "Suriname",
-    "Trinidad and Tobago",
-    "Uruguay",
-    "Venezuela",
-  ],
-  Oceania: [
-    "Australia",
-    "Fiji",
-    "New Zealand",
-    "Federated States of Micronesia",
-    "Kiribati",
-    "Marshall Islands",
-    "Nauru",
-    "Palau",
-    "Papua New Guinea",
-    "Samoa",
-    "Solomon Islands",
-    "Tonga",
-    "Tuvalu",
-    "Vanuatu",
-  ],
+
+export const countriesByContinentId: CountriesByContinentType = {
+  Europe: {
+    Albania: "AL",
+    Andorra: "AD",
+    Austria: "AT",
+    Belarus: "BY",
+    Belgium: "BE",
+    "Bosnia and Herzegovina": "BA",
+    Bulgaria: "BG",
+    Croatia: "HR",
+    Cyprus: "CY",
+    "Czech Republic": "CZ",
+    Denmark: "DK",
+    Estonia: "EE",
+    Finland: "FI",
+    France: "FR",
+    Georgia: "GE",
+    Germany: "DE",
+    Greece: "GR",
+    Hungary: "HU",
+    Iceland: "IS",
+    Ireland: "IE",
+    Italy: "IT",
+    Kosovo: "XK",
+    Latvia: "LV",
+    Liechtenstein: "LI",
+    Lithuania: "LT",
+    Luxembourg: "LU",
+    "North Macedonia": "MK",
+    Malta: "MT",
+    Moldova: "MD",
+    Monaco: "MC",
+    Montenegro: "ME",
+    Netherlands: "NL",
+    Norway: "NO",
+    Poland: "PL",
+    Portugal: "PT",
+    Romania: "RO",
+    Russia: "RU",
+    "San Marino": "SM",
+    Serbia: "RS",
+    Slovakia: "SK",
+    Slovenia: "SI",
+    Spain: "ES",
+    Sweden: "SE",
+    Switzerland: "CH",
+    Turkey: "TR",
+    Ukraine: "UA",
+    "United Kingdom": "GB",
+    "Vatican City": "VA",
+  },
+  Africa: {
+    Algeria: "DZ",
+    Angola: "AO",
+    Benin: "BJ",
+    Botswana: "BW",
+    "Burkina Faso": "BF",
+    Burundi: "BI",
+    Cameroon: "CM",
+    "Cape Verde": "CV",
+    "Central African Republic": "CF",
+    Chad: "TD",
+    Comoros: "KM",
+    "Republic of Congo": "CG",
+    "Democratic Republic of Congo": "CD",
+    "Côte d'Ivoire": "CI",
+    Djibouti: "DJ",
+    "Equatorial Guinea": "GQ",
+    Egypt: "EG",
+    Eritrea: "ER",
+    Ethiopia: "ET",
+    Gabon: "GA",
+    Gambia: "GM",
+    Ghana: "GH",
+    Guinea: "GN",
+    Kenya: "KE",
+    Lesotho: "LS",
+    Liberia: "LR",
+    Libya: "LY",
+    Madagascar: "MG",
+    Malawi: "MW",
+    Mali: "ML",
+    Mauritania: "MR",
+    Mauritius: "MU",
+    Morocco: "MA",
+    Mozambique: "MZ",
+    Namibia: "NA",
+    Niger: "NE",
+    Nigeria: "NG",
+    Reunion: "RE",
+    Rwanda: "RW",
+    "Sao Tome and Principe": "ST",
+    Senegal: "SN",
+    Seychelles: "SC",
+    "Sierra Leone": "SL",
+    Somalia: "SO",
+    "South Africa": "ZA",
+    "South Sudan": "SS",
+    Sudan: "SD",
+    Swaziland: "SZ",
+    Tanzania: "TZ",
+    Togo: "TG",
+    Tunisia: "TN",
+    Uganda: "UG",
+    "Western Sahara": "EH",
+    Zambia: "ZM",
+    Zimbabwe: "ZW",
+  },
+  Asia: {
+    Afghanistan: "AF",
+    Armenia: "AM",
+    Azerbaijan: "AZ",
+    Bahrain: "BH",
+    Bangladesh: "BD",
+    Bhutan: "BT",
+    Brunei: "BN",
+    Cambodia: "KH",
+    China: "CN",
+    "Timor-Leste": "TL",
+    Georgia: "GE",
+    India: "IN",
+    Indonesia: "ID",
+    Iran: "IR",
+    Iraq: "IQ",
+    Israel: "IL",
+    Japan: "JP",
+    Jordan: "JO",
+    Kazakhstan: "KZ",
+    Kuwait: "KW",
+    Kyrgyzstan: "KG",
+    Laos: "LA",
+    Lebanon: "LB",
+    Malaysia: "MY",
+    Maldives: "MV",
+    Mongolia: "MN",
+    Myanmar: "MM",
+    Nepal: "NP",
+    "North Korea": "KP",
+    Oman: "OM",
+    Pakistan: "PK",
+    Palestine: "PS",
+    Philippines: "PH",
+    Qatar: "QA",
+    Russia: "RU",
+    "Saudi Arabia": "SA",
+    Singapore: "SG",
+    "South Korea": "KR",
+    "Sri Lanka": "LK",
+    Syria: "SY",
+    Tajikistan: "TJ",
+    Thailand: "TH",
+    Turkey: "TR",
+    Turkmenistan: "TM",
+    Taiwan: "TW",
+    "United Arab Emirates": "AE",
+    Uzbekistan: "UZ",
+    Vietnam: "VN",
+    Yemen: "YE",
+  },
+  "North America": {
+    Canada: "CA",
+    Mexico: "MX",
+    "United States": "US",
+    "Puerto Rico": "PR",
+    "US Virgin Islands": "VI",
+    "Dominican Republic": "DO",
+    Cuba: "CU",
+    Haiti: "HT",
+    Belize: "BZ",
+    "Costa Rica": "CR",
+    "El Salvador": "SV",
+    Guatemala: "GT",
+    Honduras: "HN",
+    Guadeloupe: "GP",
+    Martinique: "MQ",
+    Nicaragua: "NI",
+    Panama: "PA",
+    Jamaica: "JM",
+    Bahamas: "BS",
+    Barbados: "BB",
+    Dominica: "DM",
+  },
+  "South America": {
+    Brazil: "BR",
+    Argentina: "AR",
+    Bolivia: "BO",
+    Chile: "CL",
+    Colombia: "CO",
+    Ecuador: "EC",
+    "Falkland Islands": "FK",
+    "French Guiana": "GF",
+    Guyana: "GY",
+    Paraguay: "PY",
+    Peru: "PE",
+    "South Georgia and the South Sandwich Islands": "GS",
+    Suriname: "SR",
+    "Trinidad and Tobago": "TT",
+    Uruguay: "UY",
+    Venezuela: "VE",
+  },
+  Oceania: {
+    Australia: "AU",
+    Fiji: "FJ",
+    "New Zealand": "NZ",
+    "Federated States of Micronesia": "FM",
+    Kiribati: "KI",
+    "Marshall Islands": "MH",
+    Nauru: "NR",
+    Palau: "PW",
+    "Papua New Guinea": "PG",
+    Samoa: "WS",
+    "Solomon Islands": "SB",
+    Tonga: "TO",
+    Tuvalu: "TV",
+    Vanuatu: "VU",
+  },
 };
