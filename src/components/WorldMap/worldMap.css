@@ -13,9 +13,6 @@ path {
   fill: black;
 }
 
-.space-adjustments {
-  margin: 3000px;
-}
 @keyframes Zoom {
   from {
     transform: scale(var(--zoom-initial));
@@ -47,6 +44,9 @@ path {
   to {
     transform: scale(var(--zoom-final));
   }
+}
+.space_adjustments {
+  margin: 3000px;
 }
 .map {
   position: absolute;
@@ -93,4 +93,19 @@ p {
 }
 .north_america {
   transform: scale(2.5) translate(340px, 40px);
+}
+.africa {
+  transform: scale(3) translate(-10px, -110px);
+}
+.europe {
+  transform: scale(3.5) translate(0px, 50px);
+}
+.south_america {
+  transform: scale(3) translate(200px, -200px);
+}
+.oceania {
+  transform: scale(3) translate(-350px, -180px);
+}
+.asia {
+  transform: scale(2.3) translate(-220px, 10px);
 }
