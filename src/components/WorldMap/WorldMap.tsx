@@ -12,6 +12,7 @@ import {
   ContinentType,
   countriesByContinentId,
 } from "../../countries";
+import ButtonDisplay from "./ButtonDisplay";
 type ContinentToCssType = { [K in ContinentType]: string };
 const continentToCss: ContinentToCssType = {
   "North America": "north_america",
@@ -24,7 +25,7 @@ const continentToCss: ContinentToCssType = {
 interface Props {
   continent: ContinentType | null;
 }
-type SelectedCountryType = {
+export type SelectedCountryType = {
   name: string;
   id: string;
 };
@@ -72,28 +73,12 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
   return (
     <>
       <div className="map-container">
-        {Boolean(continent) ? (
-          !selectedCountry && (
-            <button
-              className="start_button"
-              onClick={() => {
-                handleStartClick();
-              }}
-            >
-              Start
-            </button>
-          )
-        ) : (
-          <button
-            className="start_button"
-            onClick={() => {
-              handleStartClick();
-            }}
-            disabled
-          >
-            Select A Continent Above
-          </button>
-        )}
+        <ButtonDisplay
+          continent={continent}
+          selectedCountry={selectedCountry}
+          handleStartClick={handleStartClick}
+        />
+
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="-169.110266 83.600842 190.486279 -58.508473"
