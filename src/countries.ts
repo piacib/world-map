@@ -238,7 +238,7 @@ type CountriesByContinentType = {
   Oceania: { [K in OceaniaKeys]: CountryCodeType };
 };
 
-export const countriesByContinentId: CountriesByContinentType = {
+export const countriesByContinent: CountriesByContinentType = {
   Europe: {
     Albania: "AL",
     Andorra: "AD",
