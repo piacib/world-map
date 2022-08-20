@@ -15,7 +15,7 @@ export const randomNumberOrder = (num: number): number[] => {
   return answer;
 };
 type RandomEntriesNonRepeatingProps = {
-  arr: any[];
+  arr: string[];
   outputLength: number;
 };
 export const randomEntriesNonRepeating = ({
