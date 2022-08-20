@@ -4,28 +4,44 @@ import { countriesByContinent, ContinentType } from "../../countries";
 interface Props {
   correctCountry: string | null;
   continent: ContinentType | null;
+  displayNewCountry: () => void;
 }
-const MultipleChoice: React.FC<Props> = ({ correctCountry, continent }) => {
+const MultipleChoice: React.FC<Props> = ({
+  correctCountry,
+  continent,
+  displayNewCountry,
+}) => {
   if (!correctCountry || !continent) {
     return <></>;
   }
+  const correctClick = () => {
+    alert("correct");
+    displayNewCountry();
+  };
+  const incorrectClick = () => {
+    alert("incorrect");
+    displayNewCountry();
+  };
   const order = randomNumberOrder(4);
   const tempArr = Object.keys(countriesByContinent[continent]);
-  console.log("first", tempArr);
   const correctCountryIndex = tempArr.indexOf(correctCountry);
-  console.log("correctCountryIndex", correctCountryIndex);
   tempArr.splice(correctCountryIndex, 1);
-  console.log("post", tempArr);
   const incorrectOptions = randomEntriesNonRepeating({
     arr: tempArr,
     outputLength: 3,
   });
-  let countryList = [correctCountry, ...incorrectOptions];
+  const incorrectCountrySets: [string, () => void][] = incorrectOptions.map(
+    (x) => [x, incorrectClick]
+  );
+  let countryList: [string, () => void][] = [
+    [correctCountry, correctClick],
+    ...incorrectCountrySets,
+  ];
 
   return (
     <div>
       {order.map((x) => (
-        <button>{countryList[x]}</button>
+        <button onClick={countryList[x][1]}>{countryList[x][0]}</button>
       ))}
     </div>
   );
