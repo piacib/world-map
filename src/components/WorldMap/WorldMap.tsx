@@ -10,9 +10,10 @@ import { svgPaths } from "../../svg";
 import {
   Countries,
   ContinentType,
-  countriesByContinentId,
+  countriesByContinent,
 } from "../../countries";
 import ButtonDisplay from "./ButtonDisplay";
+import MultipleChoice from "../MultipleChoice/MultipleChoice";
 type ContinentToCssType = { [K in ContinentType]: string };
 const continentToCss: ContinentToCssType = {
   "North America": "north_america",
@@ -45,7 +46,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
   // sets country list on continent select
   useEffect(() => {
     if (continent) {
-      setUnseenCountryList(countriesByContinentId[continent]);
+      setUnseenCountryList(countriesByContinent[continent]);
     }
   }, [continent]);
   const handleClick = () => {
@@ -70,6 +71,9 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
       colorElement(document.getElementById(selectedCountry.id));
     }
   }, [selectedCountry]);
+  const multipleChoiceOptions = selectedCountry?.name
+    ? [selectedCountry.name]
+    : null;
   return (
     <>
       <div className="map-container">
@@ -77,6 +81,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
           continent={continent}
           selectedCountry={selectedCountry}
           handleStartClick={handleStartClick}
+          handleClick={handleClick}
         />
 
         <svg
@@ -96,8 +101,10 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
       {selectedCountry && (
         <button onClick={() => handleClick()}>New Country</button>
       )}
-      <p>{selectedCountry ? selectedCountry.id : "no id"}</p>
-      <p>{selectedCountry && selectedCountry.name}</p>
+      <MultipleChoice
+        correctCountry={selectedCountry ? selectedCountry.name : null}
+        continent={continent}
+      />
     </>
   );
 };
