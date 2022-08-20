@@ -98,12 +98,11 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
           ))}
         </svg>
       </div>
-      {selectedCountry && (
-        <button onClick={() => handleClick()}>New Country</button>
-      )}
+
       <MultipleChoice
         correctCountry={selectedCountry ? selectedCountry.name : null}
         continent={continent}
+        displayNewCountry={handleClick}
       />
     </>
   );
