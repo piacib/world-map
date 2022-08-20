@@ -5,11 +5,13 @@ interface Props {
   continent: ContinentType | null;
   selectedCountry: SelectedCountryType | null;
   handleStartClick: () => void;
+  handleClick: () => void;
 }
 const ButtonDisplay: React.FC<Props> = ({
   continent,
   selectedCountry,
   handleStartClick,
+  handleClick,
 }) => {
   return (
     <>
