@@ -14,13 +14,9 @@ const MultipleChoice: React.FC<Props> = ({
   if (!correctCountry || !continent) {
     return <></>;
   }
-  const correctClick = () => {
-    alert("correct");
+  const handleClick = (id: number, correct: boolean) => {
     displayNewCountry();
-  };
-  const incorrectClick = () => {
-    alert("incorrect");
-    displayNewCountry();
+    alert(`${correct}, ${id}`);
   };
   const order = randomNumberOrder(4);
   const tempArr = Object.keys(countriesByContinent[continent]);
@@ -30,18 +26,20 @@ const MultipleChoice: React.FC<Props> = ({
     arr: tempArr,
     outputLength: 3,
   });
-  const incorrectCountrySets: [string, () => void][] = incorrectOptions.map(
-    (x) => [x, incorrectClick]
-  );
-  let countryList: [string, () => void][] = [
-    [correctCountry, correctClick],
-    ...incorrectCountrySets,
-  ];
+
+  let countryList = [correctCountry, ...incorrectOptions];
 
   return (
     <div>
-      {order.map((x) => (
-        <button onClick={countryList[x][1]}>{countryList[x][0]}</button>
+      {order.map((x, idx) => (
+        <button
+          id={`option${idx + 1}`}
+          onClick={() => {
+            handleClick(idx + 1, true);
+          }}
+        >
+          {countryList[idx]}
+        </button>
       ))}
     </div>
   );
