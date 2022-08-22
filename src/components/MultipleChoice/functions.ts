@@ -1,5 +1,3 @@
-import { warn } from "console";
-
 // num is length of output array
 export const randomNumberOrder = (num: number): number[] => {
   const indexArray = [];
