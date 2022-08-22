@@ -66,14 +66,12 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
       setSelectedCountry({ name: name, id: unseenCountryList[name] });
     }
   };
+  const handleMultipleChoiceClick = () => {};
   useEffect(() => {
     if (selectedCountry) {
       colorElement(document.getElementById(selectedCountry.id));
     }
   }, [selectedCountry]);
-  const multipleChoiceOptions = selectedCountry?.name
-    ? [selectedCountry.name]
-    : null;
   return (
     <>
       <div className="map-container">
@@ -102,7 +100,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
       <MultipleChoice
         correctCountry={selectedCountry ? selectedCountry.name : null}
         continent={continent}
-        displayNewCountry={handleClick}
+        handleMultipleChoiceClick={handleMultipleChoiceClick}
       />
     </>
   );

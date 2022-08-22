@@ -4,18 +4,18 @@ import { countriesByContinent, ContinentType } from "../../countries";
 interface Props {
   correctCountry: string | null;
   continent: ContinentType | null;
-  displayNewCountry: () => void;
+  handleMultipleChoiceClick: () => void;
 }
 const MultipleChoice: React.FC<Props> = ({
   correctCountry,
   continent,
-  displayNewCountry,
+  handleMultipleChoiceClick,
 }) => {
   if (!correctCountry || !continent) {
     return <></>;
   }
   const handleClick = (id: number, correct: boolean) => {
-    displayNewCountry();
+    handleMultipleChoiceClick();
     alert(`${correct}, ${id}`);
   };
   const order = randomNumberOrder(4);
