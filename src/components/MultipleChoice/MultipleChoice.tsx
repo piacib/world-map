@@ -32,7 +32,7 @@ const MultipleChoice: React.FC<Props> = ({
   handleMultipleChoiceClick,
 }) => {
   const [selectedOption, setSelectedOption] = useState<null | number>(null);
-  // only recompute if continent, correctCountry and changed
+  // only recompute if [continent, correctCountry] and changed
   const [order, countryList] = useMemo(
     () => generateOptions(continent, correctCountry),
     [continent, correctCountry]
