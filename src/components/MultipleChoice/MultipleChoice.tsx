@@ -1,10 +1,11 @@
 import React from "react";
+import "./multipleChoice.css";
 import { randomNumberOrder, randomEntriesNonRepeating } from "./functions";
 import { countriesByContinent, ContinentType } from "../../countries";
 interface Props {
   correctCountry: string | null;
   continent: ContinentType | null;
-  handleMultipleChoiceClick: () => void;
+  handleMultipleChoiceClick: (correct: boolean) => void;
 }
 const MultipleChoice: React.FC<Props> = ({
   correctCountry,
@@ -15,8 +16,7 @@ const MultipleChoice: React.FC<Props> = ({
     return <></>;
   }
   const handleClick = (id: number, correct: boolean) => {
-    handleMultipleChoiceClick();
-    alert(`${correct}, ${id}`);
+    handleMultipleChoiceClick(correct);
   };
   const order = randomNumberOrder(4);
   const tempArr = Object.keys(countriesByContinent[continent]);
@@ -30,7 +30,7 @@ const MultipleChoice: React.FC<Props> = ({
   let countryList = [correctCountry, ...incorrectOptions];
 
   return (
-    <div>
+    <div className="multiplechoice_container">
       {order.map((x, idx) => (
         <button
           id={`option${idx + 1}`}
