@@ -18,6 +18,7 @@ const MultipleChoice: React.FC<Props> = ({
   const handleClick = (id: number, correct: boolean) => {
     handleMultipleChoiceClick(correct);
   };
+  // Number of choices in multiplechoice
   const order = randomNumberOrder(4);
   const tempArr = Object.keys(countriesByContinent[continent]);
   const correctCountryIndex = tempArr.indexOf(correctCountry);
@@ -26,7 +27,7 @@ const MultipleChoice: React.FC<Props> = ({
     arr: tempArr,
     outputLength: 3,
   });
-
+  // correctCountry must be first to match x === 0 in handleCLick
   let countryList = [correctCountry, ...incorrectOptions];
 
   return (
