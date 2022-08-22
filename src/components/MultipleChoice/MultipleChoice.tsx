@@ -35,10 +35,10 @@ const MultipleChoice: React.FC<Props> = ({
         <button
           id={`option${idx + 1}`}
           onClick={() => {
-            handleClick(idx + 1, true);
+            handleClick(idx + 1, x === 0 ? true : false);
           }}
         >
-          {countryList[idx]}
+          {countryList[x]}
         </button>
       ))}
     </div>
