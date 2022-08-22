@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import "./multipleChoice.css";
 import { randomNumberOrder, randomEntriesNonRepeating } from "./functions";
 import { countriesByContinent, ContinentType } from "../../countries";
@@ -7,17 +7,13 @@ interface Props {
   continent: ContinentType | null;
   handleMultipleChoiceClick: (correct: boolean) => void;
 }
-const MultipleChoice: React.FC<Props> = ({
-  correctCountry,
-  continent,
-  handleMultipleChoiceClick,
-}) => {
-  if (!correctCountry || !continent) {
-    return <></>;
+const generateOptions = (
+  continent: ContinentType | null,
+  correctCountry: string | null
+): [number[], string[]] => {
+  if (!continent || !correctCountry) {
+    return [[], []];
   }
-  const handleClick = (id: number, correct: boolean) => {
-    handleMultipleChoiceClick(correct);
-  };
   // Number of choices in multiplechoice
   const order = randomNumberOrder(4);
   const tempArr = Object.keys(countriesByContinent[continent]);
@@ -28,15 +24,38 @@ const MultipleChoice: React.FC<Props> = ({
     outputLength: 3,
   });
   // correctCountry must be first to match x === 0 in handleCLick
-  let countryList = [correctCountry, ...incorrectOptions];
-
+  return [order, [correctCountry, ...incorrectOptions]];
+};
+const MultipleChoice: React.FC<Props> = ({
+  correctCountry,
+  continent,
+  handleMultipleChoiceClick,
+}) => {
+  const [selectedOption, setSelectedOption] = useState<null | number>(null);
+  // only recompute if continent, correctCountry and changed
+  const [order, countryList] = useMemo(
+    () => generateOptions(continent, correctCountry),
+    [continent, correctCountry]
+  );
+  const handleClick = (id: number, correct: boolean) => {
+    setSelectedOption(id);
+    setTimeout(() => {
+      handleMultipleChoiceClick(correct);
+      // delay atfer click before rerender
+    }, 500);
+  };
+  const cleanUp = () => {
+    setSelectedOption(null);
+  };
   return (
     <div className="multiplechoice_container">
       {order.map((x, idx) => (
         <button
-          id={`option${idx + 1}`}
+          className={
+            selectedOption === idx ? (x === 0 ? "correct" : "incorrect") : ""
+          }
           onClick={() => {
-            handleClick(idx + 1, x === 0 ? true : false);
+            handleClick(idx, x === 0 ? true : false);
           }}
         >
           {countryList[x]}
