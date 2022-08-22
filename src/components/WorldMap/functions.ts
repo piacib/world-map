@@ -1,3 +1,5 @@
+import { ContinentToCssType } from "./types";
+
 export const getRandomKey = (obj: Object) => {
   const keys = Object.keys(obj);
   return keys[Math.floor(Math.random() * keys.length - 1)];
@@ -40,4 +42,12 @@ const zoomer = (country: string | null): string => {
     return "large_country_zoom_in";
   }
   return "startZoom";
+};
+export const continentToCss: ContinentToCssType = {
+  "North America": "north_america",
+  "South America": "south_america",
+  Europe: "europe",
+  Africa: "africa",
+  Asia: "asia",
+  Oceania: "oceania",
 };
