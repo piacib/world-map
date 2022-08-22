@@ -5,6 +5,7 @@ import {
   // executeScroll,
   colorElement,
   removeColorFromElement,
+  continentToCss,
 } from "./functions";
 import { svgPaths } from "../../svg";
 import {
@@ -14,22 +15,12 @@ import {
 } from "../../countries";
 import ButtonDisplay from "./ButtonDisplay";
 import MultipleChoice from "../MultipleChoice/MultipleChoice";
-type ContinentToCssType = { [K in ContinentType]: string };
-const continentToCss: ContinentToCssType = {
-  "North America": "north_america",
-  "South America": "south_america",
-  Europe: "europe",
-  Africa: "africa",
-  Asia: "asia",
-  Oceania: "oceania",
-};
+import { SelectedCountryType } from "./types";
+
 interface Props {
   continent: ContinentType | null;
 }
-export type SelectedCountryType = {
-  name: string;
-  id: string;
-};
+
 const WorldMap: React.FC<Props> = ({ continent }) => {
   const [selectedCountry, setSelectedCountry] =
     useState<null | SelectedCountryType>(null);
@@ -49,7 +40,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
       setUnseenCountryList(countriesByContinent[continent]);
     }
   }, [continent]);
-  const handleClick = () => {
+  const displayNewCountry = () => {
     if (!selectedCountry) {
       return;
     }
@@ -66,7 +57,14 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
       setSelectedCountry({ name: name, id: unseenCountryList[name] });
     }
   };
-  const handleMultipleChoiceClick = () => {};
+  const handleMultipleChoiceClick = (correct: boolean) => {
+    if (correct) {
+      console.log("correct!");
+    } else {
+      console.log("incorrect");
+    }
+    displayNewCountry();
+  };
   useEffect(() => {
     if (selectedCountry) {
       colorElement(document.getElementById(selectedCountry.id));
@@ -79,7 +77,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
           continent={continent}
           selectedCountry={selectedCountry}
           handleStartClick={handleStartClick}
-          handleClick={handleClick}
+          handleClick={displayNewCountry}
         />
 
         <svg
@@ -100,7 +98,9 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
       <MultipleChoice
         correctCountry={selectedCountry ? selectedCountry.name : null}
         continent={continent}
-        handleMultipleChoiceClick={handleMultipleChoiceClick}
+        handleMultipleChoiceClick={(correct) =>
+          handleMultipleChoiceClick(correct)
+        }
       />
     </>
   );
