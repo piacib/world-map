@@ -80,10 +80,14 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
     }
     displayNewCountry();
   };
-  console.log(zoom);
   return (
     <>
-      <div className="map-container" onWheel={onWheel}>
+      <div
+        className="map_container"
+        onWheel={(e) => {
+          onWheel(e);
+        }}
+      >
         <ButtonDisplay
           continent={continent}
           selectedCountry={selectedCountry}
