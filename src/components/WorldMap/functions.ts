@@ -2,7 +2,7 @@ import { ContinentToCssType } from "./types";
 
 export const getRandomKey = (obj: Object) => {
   const keys = Object.keys(obj);
-  return keys[Math.floor(Math.random() * keys.length - 1)];
+  return keys[Math.floor(Math.random() * (keys.length - 1))];
 };
 export const executeScroll = (element: HTMLElement | null) => {
   if (element === null) {
