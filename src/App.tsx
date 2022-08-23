@@ -5,6 +5,7 @@ import WorldMap from "./components/WorldMap/WorldMap";
 import { ContinentType } from "./countries";
 function App() {
   const [continent, setContinent] = useState<ContinentType | null>(null);
+
   return (
     <>
       <ContinentOptions
