@@ -1,6 +1,6 @@
 import React from "react";
 import { ContinentType } from "../../countries";
-import { SelectedCountryType } from "./WorldMap";
+import { SelectedCountryType } from "./types";
 interface Props {
   continent: ContinentType | null;
   selectedCountry: SelectedCountryType | null;
