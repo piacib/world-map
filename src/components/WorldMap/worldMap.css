@@ -49,7 +49,6 @@ path {
   margin: 3000px;
 }
 .map {
-  position: absolute;
   transform: scale(3);
 }
 .startZoom {
