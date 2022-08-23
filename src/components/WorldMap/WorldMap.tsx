@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./worldMap.css";
 import {
   getRandomKey,
-  // executeScroll,
   colorElement,
   removeColorFromElement,
   continentToCss,
@@ -20,13 +19,25 @@ import { SelectedCountryType } from "./types";
 interface Props {
   continent: ContinentType | null;
 }
-
 const WorldMap: React.FC<Props> = ({ continent }) => {
   const [selectedCountry, setSelectedCountry] =
     useState<null | SelectedCountryType>(null);
   const [unseenCountryList, setUnseenCountryList] = useState<Countries | null>(
     null
   );
+
+  // sets country list on continent select
+  useEffect(() => {
+    if (continent) {
+      setUnseenCountryList(countriesByContinent[continent]);
+    }
+  }, [continent]);
+  useEffect(() => {
+    if (selectedCountry) {
+      colorElement(document.getElementById(selectedCountry.id));
+    }
+  }, [selectedCountry]);
+
   // sets first selected country
   const handleStartClick = () => {
     if (unseenCountryList) {
@@ -34,12 +45,6 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
       setSelectedCountry({ name: randomKey, id: unseenCountryList[randomKey] });
     }
   };
-  // sets country list on continent select
-  useEffect(() => {
-    if (continent) {
-      setUnseenCountryList(countriesByContinent[continent]);
-    }
-  }, [continent]);
   const displayNewCountry = () => {
     if (!selectedCountry) {
       return;
@@ -65,11 +70,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
     }
     displayNewCountry();
   };
-  useEffect(() => {
-    if (selectedCountry) {
-      colorElement(document.getElementById(selectedCountry.id));
-    }
-  }, [selectedCountry]);
+
   return (
     <>
       <div className="map-container">
