@@ -15,7 +15,7 @@ import {
 import ButtonDisplay from "./ButtonDisplay";
 import MultipleChoice from "../MultipleChoice/MultipleChoice";
 import { SelectedCountryType } from "./types";
-import DragScroll from "../DragScroll/DragScroll";
+import GrabDrag from "../GrabDrag/GrabDrag";
 
 interface Props {
   continent: ContinentType | null;
@@ -89,7 +89,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
           handleStartClick={handleStartClick}
           handleClick={displayNewCountry}
         />
-        <DragScroll
+        <GrabDrag
           translateSensitivity={3}
           translate={translate}
           setTranslate={setTranslate}
@@ -107,7 +107,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
               <path d={entry.d} id={entry.id} />
             ))}
           </svg>
-        </DragScroll>
+        </GrabDrag>
       </div>
 
       <MultipleChoice
