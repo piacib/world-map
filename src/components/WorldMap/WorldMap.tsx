@@ -15,6 +15,7 @@ import {
 import ButtonDisplay from "./ButtonDisplay";
 import MultipleChoice from "../MultipleChoice/MultipleChoice";
 import { SelectedCountryType } from "./types";
+import GrabDrag from "../GrabDrag/GrabDrag";
 
 interface Props {
   continent: ContinentType | null;
@@ -25,9 +26,17 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
   const [unseenCountryList, setUnseenCountryList] = useState<Countries | null>(
     null
   );
+  const [translate, setTranslate] = useState({
+    x: 0,
+    y: 0,
+  });
 
   // sets country list on continent select
   useEffect(() => {
+    setTranslate({
+      x: 0,
+      y: 0,
+    });
     if (continent) {
       setUnseenCountryList(countriesByContinent[continent]);
     }
@@ -80,20 +89,25 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
           handleStartClick={handleStartClick}
           handleClick={displayNewCountry}
         />
-
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="-169.110266 83.600842 190.486279 -58.508473"
-          width="1009.6727"
-          height="665.96301"
-          className={`map space_adjustments ${
-            continent ? continentToCss[continent] : ""
-          } ${!selectedCountry ? "start_haze" : ""}`}
+        <GrabDrag
+          translateSensitivity={3}
+          translate={translate}
+          setTranslate={setTranslate}
         >
-          {svgPaths.map((entry, index) => (
-            <path d={entry.d} id={entry.id} />
-          ))}
-        </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="-169.110266 83.600842 190.486279 -58.508473"
+            width="1009.6727"
+            height="665.96301"
+            className={`map space_adjustments ${
+              continent ? continentToCss[continent] : ""
+            } ${!selectedCountry ? "start_haze" : ""}`}
+          >
+            {svgPaths.map((entry, index) => (
+              <path d={entry.d} id={entry.id} />
+            ))}
+          </svg>
+        </GrabDrag>
       </div>
 
       <MultipleChoice
