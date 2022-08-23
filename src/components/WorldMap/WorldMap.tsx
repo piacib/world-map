@@ -16,6 +16,7 @@ import ButtonDisplay from "./ButtonDisplay";
 import MultipleChoice from "../MultipleChoice/MultipleChoice";
 import { SelectedCountryType } from "./types";
 import GrabDrag from "../GrabDrag/GrabDrag";
+import useScroll from "../../hooks/useScroll";
 
 interface Props {
   continent: ContinentType | null;
@@ -30,7 +31,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
     x: 0,
     y: 0,
   });
-
+  const [[zoom], onWheel] = useScroll();
   // sets country list on continent select
   useEffect(() => {
     setTranslate({
@@ -79,10 +80,10 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
     }
     displayNewCountry();
   };
-
+  console.log(zoom);
   return (
     <>
-      <div className="map-container">
+      <div className="map-container" onWheel={onWheel}>
         <ButtonDisplay
           continent={continent}
           selectedCountry={selectedCountry}
@@ -99,6 +100,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
             viewBox="-169.110266 83.600842 190.486279 -58.508473"
             width="1009.6727"
             height="665.96301"
+            style={{ transform: `scale(${zoom})` }}
             className={`map space_adjustments ${
               continent ? continentToCss[continent] : ""
             } ${!selectedCountry ? "start_haze" : ""}`}
