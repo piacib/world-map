@@ -32,16 +32,19 @@ const MultipleChoice: React.FC<Props> = ({
   handleMultipleChoiceClick,
 }) => {
   const [selectedOption, setSelectedOption] = useState<null | number>(null);
-  // only recompute if [continent, correctCountry] and changed
+  // only recompute if [continent, correctCountry] changed
   const [order, countryList] = useMemo(
     () => generateOptions(continent, correctCountry),
     [continent, correctCountry]
   );
+  const colorOptionOnClick = (idx: number, x: number) => {
+    return selectedOption === idx ? (x === 0 ? "correct" : "incorrect") : "";
+  };
   const handleClick = (id: number, correct: boolean) => {
     setSelectedOption(id);
     setTimeout(() => {
       handleMultipleChoiceClick(correct);
-      // delay atfer click before rerender
+      // delay after click before rerender
     }, 500);
   };
   const cleanUp = () => {
@@ -51,9 +54,7 @@ const MultipleChoice: React.FC<Props> = ({
     <div className="multiplechoice_container">
       {order.map((x, idx) => (
         <button
-          className={
-            selectedOption === idx ? (x === 0 ? "correct" : "incorrect") : ""
-          }
+          className={colorOptionOnClick(idx, x)}
           onClick={() => {
             handleClick(idx, x === 0 ? true : false);
           }}
