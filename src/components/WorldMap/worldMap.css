@@ -45,13 +45,6 @@ path {
     transform: scale(var(--zoom-final));
   }
 }
-.space_adjustments {
-  /* margin: 30px; */
-}
-.map {
-  /* position: absolute; */
-  /* transform: scale(3); */
-}
 .startZoom {
   animation: startZoom 1s;
   transform: scale(var(--zoom-final));

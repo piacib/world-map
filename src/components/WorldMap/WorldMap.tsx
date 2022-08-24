@@ -4,7 +4,6 @@ import {
   getRandomKey,
   colorElement,
   removeColorFromElement,
-  continentToCss,
 } from "./functions";
 import { svgPaths } from "../../svg";
 import {
@@ -57,7 +56,6 @@ const transformVars: {
   },
 };
 const WorldMap: React.FC<Props> = ({ continent }) => {
-  const [test, setTest] = useState<number[]>([0, 0]);
   const [selectedCountry, setSelectedCountry] =
     useState<null | SelectedCountryType>(null);
   const [unseenCountryList, setUnseenCountryList] = useState<Countries | null>(
