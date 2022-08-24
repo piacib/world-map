@@ -12,53 +12,6 @@ path {
 .highlight {
   fill: black;
 }
-
-@keyframes Zoom {
-  from {
-    transform: scale(var(--zoom-initial));
-  }
-  to {
-    transform: scale(var(--zoom-final));
-  }
-}
-@keyframes startZoom {
-  from {
-    transform: scale(var(--zoom-initial));
-  }
-  to {
-    transform: scale(var(--zoom-final));
-  }
-}
-@keyframes largeCountryZoomOut {
-  from {
-    transform: scale(var(--zoom-final));
-  }
-  to {
-    transform: scale(var(--zoom-large));
-  }
-}
-@keyframes largeCountryZoomIn {
-  from {
-    transform: scale(var(--zoom-large));
-  }
-  to {
-    transform: scale(var(--zoom-final));
-  }
-}
-.startZoom {
-  animation: startZoom 1s;
-  transform: scale(var(--zoom-final));
-}
-.large_country_zoom_out {
-  animation: largeCountryZoomOut 1s;
-  transform: scale(--zoom-final);
-}
-.large_country_zoom_in {
-  --zoom-initial: 3;
-  --zoom-final: 2;
-  animation: Zoom 1s;
-  transform: scale(var(--zoom-final));
-}
 .map_container {
   margin: 1.5rem auto 0;
   width: 50rem;
@@ -83,22 +36,4 @@ p {
 .start_haze {
   z-index: -1;
   opacity: 0.2;
-}
-.north_america {
-  transform: scale(2.5) translate(340px, 40px);
-}
-.africa {
-  transform: scale(3) translate(-10px, -110px);
-}
-.europe {
-  transform: scale(3.5) translate(0px, 50px);
-}
-.south_america {
-  transform: scale(3) translate(200px, -200px);
-}
-.oceania {
-  transform: scale(3) translate(-350px, -180px);
-}
-.asia {
-  transform: scale(2.3) translate(-220px, 10px);
 }
