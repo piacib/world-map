@@ -46,11 +46,11 @@ path {
   }
 }
 .space_adjustments {
-  margin: 30px;
+  /* margin: 30px; */
 }
 .map {
-  position: absolute;
-  transform: scale(3);
+  /* position: absolute; */
+  /* transform: scale(3); */
 }
 .startZoom {
   animation: startZoom 1s;
@@ -66,7 +66,7 @@ path {
   animation: Zoom 1s;
   transform: scale(var(--zoom-final));
 }
-.map-container {
+.map_container {
   margin: 1.5rem auto 0;
   width: 50rem;
   height: 50rem;
@@ -84,8 +84,8 @@ p {
 .start_button {
   height: 2rem;
   font-size: 1.4rem;
-  /* z-index: 7; */
-  position: relative;
+  z-index: 1;
+  position: absolute;
 }
 .start_haze {
   z-index: -1;

@@ -16,11 +16,48 @@ import ButtonDisplay from "./ButtonDisplay";
 import MultipleChoice from "../MultipleChoice/MultipleChoice";
 import { SelectedCountryType } from "./types";
 import GrabDrag from "../GrabDrag/GrabDrag";
+import useScroll from "../../hooks/useScroll";
 
 interface Props {
   continent: ContinentType | null;
 }
+const translateSensitivity = 3;
+const transformVars: {
+  [K in ContinentType]: { scale: number; x: number; y: number };
+} = {
+  "North America": {
+    scale: 2.5,
+    x: 864,
+    y: 105,
+  },
+  Africa: {
+    scale: 3,
+    x: -66,
+    y: -408,
+  },
+  Europe: {
+    scale: 3.5,
+    x: 0,
+    y: 156,
+  },
+  "South America": {
+    scale: 3,
+    x: 624,
+    y: -636,
+  },
+  Oceania: {
+    scale: 3,
+    x: -1077,
+    y: -510,
+  },
+  Asia: {
+    scale: 2.1,
+    x: -507,
+    y: -18,
+  },
+};
 const WorldMap: React.FC<Props> = ({ continent }) => {
+  const [test, setTest] = useState<number[]>([0, 0]);
   const [selectedCountry, setSelectedCountry] =
     useState<null | SelectedCountryType>(null);
   const [unseenCountryList, setUnseenCountryList] = useState<Countries | null>(
@@ -30,17 +67,20 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
     x: 0,
     y: 0,
   });
-
+  const [[zoom, setZoom], onWheel] = useScroll();
   // sets country list on continent select
+
   useEffect(() => {
-    setTranslate({
-      x: 0,
-      y: 0,
-    });
+    console.log("recheck");
     if (continent) {
       setUnseenCountryList(countriesByContinent[continent]);
+      setZoom(transformVars[continent].scale);
+      setTranslate({
+        x: transformVars[continent].x / translateSensitivity,
+        y: transformVars[continent].y / translateSensitivity,
+      });
     }
-  }, [continent]);
+  }, [continent, setZoom]);
   useEffect(() => {
     if (selectedCountry) {
       colorElement(document.getElementById(selectedCountry.id));
@@ -79,10 +119,14 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
     }
     displayNewCountry();
   };
-
   return (
     <>
-      <div className="map-container">
+      <div
+        className="map_container"
+        onWheel={(e) => {
+          onWheel(e);
+        }}
+      >
         <ButtonDisplay
           continent={continent}
           selectedCountry={selectedCountry}
@@ -99,8 +143,10 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
             viewBox="-169.110266 83.600842 190.486279 -58.508473"
             width="1009.6727"
             height="665.96301"
-            className={`map space_adjustments ${
-              continent ? continentToCss[continent] : ""
+            style={{
+              transform: `scale(${zoom}`,
+            }}
+            className={`map
             } ${!selectedCountry ? "start_haze" : ""}`}
           >
             {svgPaths.map((entry, index) => (
