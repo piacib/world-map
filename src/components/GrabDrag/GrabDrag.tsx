@@ -70,6 +70,7 @@ const GrabDrag: React.FC<Props> = ({
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       style={style}
+      id="drag_scroll"
       className={`${className} default_drag_scroll`}
     >
       <div
