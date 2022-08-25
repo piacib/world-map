@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./worldMap.css";
 import {
   getRandomKey,
@@ -16,7 +16,11 @@ import MultipleChoice from "../MultipleChoice/MultipleChoice";
 import { SelectedCountryType } from "./types";
 import GrabDrag from "../GrabDrag/GrabDrag";
 import useScroll from "../../hooks/useScroll";
-
+type CircleCountryType = {
+  cx: number;
+  cy: number;
+  r: number;
+};
 interface Props {
   continent: ContinentType | null;
 }
@@ -66,10 +70,12 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
     y: 0,
   });
   const [[zoom, setZoom], onWheel] = useScroll();
+  const [circleStyle, setCircleStyle] = useState<CircleCountryType | null>(
+    null
+  );
   // sets country list on continent select
 
   useEffect(() => {
-    console.log("recheck");
     if (continent) {
       setUnseenCountryList(countriesByContinent[continent]);
       setZoom(transformVars[continent].scale);
@@ -84,7 +90,27 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
       colorElement(document.getElementById(selectedCountry.id));
     }
   }, [selectedCountry]);
-
+  useLayoutEffect(() => {
+    if (selectedCountry) {
+      const element = document.getElementById(selectedCountry.id);
+      if (element instanceof SVGPathElement) {
+        //&& (element.height < 15 || element.width < 15)) {
+        const bBox = element.getBBox();
+        const longerLength =
+          bBox.height < bBox.width ? bBox.width : bBox.height;
+        if (bBox.height < 15 || bBox.width < 15) {
+          setCircleStyle({
+            cx: bBox.x + bBox.width / 2,
+            cy: bBox.y + bBox.height / 2,
+            r: longerLength,
+          });
+        } else {
+          setCircleStyle(null);
+        }
+      }
+    }
+    return () => {};
+  }, [selectedCountry]);
   // sets first selected country
   const handleStartClick = () => {
     if (unseenCountryList) {
@@ -111,9 +137,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
   };
   const handleMultipleChoiceClick = (correct: boolean) => {
     if (correct) {
-      console.log("correct!");
     } else {
-      console.log("incorrect");
     }
     displayNewCountry();
   };
@@ -148,8 +172,18 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
             } ${!selectedCountry ? "start_haze" : ""}`}
           >
             {svgPaths.map((entry, index) => (
-              <path d={entry.d} id={entry.id} />
+              <path d={entry.d} id={entry.id} key={entry.id} />
             ))}
+            {circleStyle && (
+              <circle
+                id="small_country_circle"
+                cx={circleStyle.cx}
+                cy={circleStyle.cy}
+                r={circleStyle.r}
+                stroke="green"
+                fill="none"
+              />
+            )}
           </svg>
         </GrabDrag>
       </div>
