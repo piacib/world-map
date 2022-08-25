@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./worldMap.css";
 import {
   getRandomKey,
@@ -74,11 +74,10 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
     null
   );
   // sets country list on continent select
-
   useEffect(() => {
     if (continent) {
       setUnseenCountryList(countriesByContinent[continent]);
-      setZoom(transformVars[continent].scale);
+      setZoom({ ...zoom, scale: transformVars[continent].scale });
       setTranslate({
         x: transformVars[continent].x / translateSensitivity,
         y: transformVars[continent].y / translateSensitivity,
@@ -102,7 +101,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
           setCircleStyle({
             cx: bBox.x + bBox.width / 2,
             cy: bBox.y + bBox.height / 2,
-            r: longerLength,
+            r: longerLength + 3,
           });
         } else {
           setCircleStyle(null);
@@ -165,9 +164,12 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
             viewBox="-169.110266 83.600842 190.486279 -58.508473"
             width="1009.6727"
             height="665.96301"
+            onMouseOver={(e) => console.log(e)}
             style={{
-              transform: `scale(${zoom}`,
+              transformOrigin: "0 0",
+              transform: `translate(${zoom.x}px, ${zoom.y}px) scale(${zoom.scale}`,
             }}
+            id="map"
             className={`map
             } ${!selectedCountry ? "start_haze" : ""}`}
           >
