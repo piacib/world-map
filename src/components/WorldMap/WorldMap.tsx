@@ -90,7 +90,7 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
       colorElement(document.getElementById(selectedCountry.id));
     }
   }, [selectedCountry]);
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (selectedCountry) {
       const element = document.getElementById(selectedCountry.id);
       if (element instanceof SVGPathElement) {
