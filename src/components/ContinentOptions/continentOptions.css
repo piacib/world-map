@@ -7,4 +7,8 @@
   list-style: none;
   padding: 0 10px;
   cursor: pointer;
+  border-radius: 10px;
+}
+.continent_options_menu li:hover {
+  background-color: aquamarine;
 }
