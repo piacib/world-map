@@ -49,7 +49,6 @@ const MultipleChoice: React.FC<Props> = ({
       // delay after click before rerender
     }, 500);
   };
-  console.log(selectedOption, order);
   return (
     <div className="multiplechoice_container">
       {order.map((x, idx) => (
