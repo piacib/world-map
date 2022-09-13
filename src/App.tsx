@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import ContinentOptions from "./components/ContinentOptions/ContinentOptions";
 import WorldMap from "./components/WorldMap/WorldMap";
 import { ContinentType } from "./countries";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-interface ContinentStorage {
-  key: string;
-  initialValue: ContinentType;
-}
+
 function App() {
   const [continent, setContinent] = useLocalStorage<ContinentType | null>(
     "continent",
