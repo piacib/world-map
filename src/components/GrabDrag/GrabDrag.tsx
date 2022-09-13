@@ -15,6 +15,7 @@ interface Props {
   children?: JSX.Element;
   style?: any;
   className?: any;
+  disabled?: boolean;
 }
 const GrabDrag: React.FC<Props> = ({
   setTranslate,
@@ -23,6 +24,7 @@ const GrabDrag: React.FC<Props> = ({
   children,
   style,
   className,
+  disabled = false,
   // optional effect functions on mouse movements
   onDragMove,
   onPointerDown,
@@ -73,15 +75,19 @@ const GrabDrag: React.FC<Props> = ({
       id="drag_scroll"
       className={`${className} default_drag_scroll`}
     >
-      <div
-        style={{
-          transform: `translateX(${
-            translate.x * translateSensitivity
-          }px) translateY(${translate.y * translateSensitivity}px)`,
-        }}
-      >
-        {children}
-      </div>
+      {!disabled ? (
+        <div
+          style={{
+            transform: `translateX(${
+              translate.x * translateSensitivity
+            }px) translateY(${translate.y * translateSensitivity}px)`,
+          }}
+        >
+          {children}
+        </div>
+      ) : (
+        <div>{children}</div>
+      )}
     </div>
   );
 };
