@@ -14,8 +14,8 @@ path {
 }
 .map_container {
   margin: 1.5rem auto;
-  width: 50rem;
-  height: 50rem;
+  width: 100%;
+  aspect-ratio: 1;
   overflow: hidden;
   position: relative;
   display: flex;
