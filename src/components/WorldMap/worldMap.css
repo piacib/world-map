@@ -13,7 +13,7 @@ path {
   fill: rgb(13, 224, 224);
 }
 .map_container {
-  margin: 1.5rem auto 0;
+  margin: 1.5rem auto;
   width: 50rem;
   height: 50rem;
   overflow: hidden;
@@ -36,4 +36,8 @@ p {
 .start_haze {
   z-index: -1;
   opacity: 0.2;
+}
+#tracker {
+  position: absolute;
+  left: 0;
 }

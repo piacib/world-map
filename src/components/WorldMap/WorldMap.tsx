@@ -1,78 +1,31 @@
-import React, { useEffect, useState } from "react";
-import "./worldMap.css";
+import React, { useEffect, useState } from 'react';
+import './worldMap.css';
 import {
   getRandomKey,
   colorElement,
   removeColorFromElement,
-} from "./functions";
-import { svgPaths } from "../../svg";
-import {
-  Countries,
-  ContinentType,
-  countriesByContinent,
-} from "../../countries";
-import ButtonDisplay from "./ButtonDisplay";
-import MultipleChoice from "../MultipleChoice/MultipleChoice";
-import { SelectedCountryType } from "./types";
-import GrabDrag from "../GrabDrag/GrabDrag";
-import useScroll from "../../hooks/useScroll";
-type CircleCountryType = {
-  cx: number;
-  cy: number;
-  r: number;
-};
+  centerCountry,
+  transformVars,
+} from './functions';
+import { svgPaths } from '../../svg';
+import { Countries, ContinentType, countriesByContinent } from '../../countries';
+import ButtonDisplay from './ButtonDisplay';
+import MultipleChoice from '../MultipleChoice/MultipleChoice';
+import { SelectedCountryType, CircleCountryType } from './types';
+import GrabDrag from '../GrabDrag/GrabDrag';
+import useScroll from '../../hooks/useScroll';
+
 interface Props {
   continent: ContinentType | null;
+  translateSensitivity?: number;
 }
-const translateSensitivity = 3;
-const transformVars: {
-  [K in ContinentType]: { scale: number; x: number; y: number };
-} = {
-  "North America": {
-    scale: 2.5,
-    x: 864,
-    y: 105,
-  },
-  Africa: {
-    scale: 3,
-    x: -66,
-    y: -408,
-  },
-  Europe: {
-    scale: 3.5,
-    x: 0,
-    y: 156,
-  },
-  "South America": {
-    scale: 3,
-    x: 624,
-    y: -636,
-  },
-  Oceania: {
-    scale: 3,
-    x: -1077,
-    y: -510,
-  },
-  Asia: {
-    scale: 2.1,
-    x: -507,
-    y: -18,
-  },
-};
-const WorldMap: React.FC<Props> = ({ continent }) => {
-  const [selectedCountry, setSelectedCountry] =
-    useState<null | SelectedCountryType>(null);
-  const [unseenCountryList, setUnseenCountryList] = useState<Countries | null>(
-    null
-  );
-  const [translate, setTranslate] = useState({
-    x: 0,
-    y: 0,
-  });
+const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
+  const [selectedCountry, setSelectedCountry] = useState<null | SelectedCountryType>(null);
+  const [unseenCountryList, setUnseenCountryList] = useState<Countries | null>(null);
+  const [translate, setTranslate] = useState({ x: 0, y: 0 });
   const [[zoom, setZoom], onWheel] = useScroll();
-  const [circleStyle, setCircleStyle] = useState<CircleCountryType | null>(
-    null
-  );
+  const [circleStyle, setCircleStyle] = useState<CircleCountryType | null>(null);
+  const [correctChoice, setCorrectChoice] = useState<number>(0);
   // sets country list on continent select
   useEffect(() => {
     if (continent) {
@@ -83,20 +36,20 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
         y: transformVars[continent].y / translateSensitivity,
       });
     }
-  }, [continent, setZoom]);
+  }, [continent, setZoom, translateSensitivity]);
   useEffect(() => {
     if (selectedCountry) {
       colorElement(document.getElementById(selectedCountry.id));
     }
   }, [selectedCountry]);
+  // circles small contries on select
   useEffect(() => {
     if (selectedCountry) {
       const element = document.getElementById(selectedCountry.id);
       if (element instanceof SVGPathElement) {
         //&& (element.height < 15 || element.width < 15)) {
         const bBox = element.getBBox();
-        const longerLength =
-          bBox.height < bBox.width ? bBox.width : bBox.height;
+        const longerLength = bBox.height < bBox.width ? bBox.width : bBox.height;
         if (bBox.height < 15 || bBox.width < 15) {
           setCircleStyle({
             cx: bBox.x + bBox.width / 2,
@@ -110,11 +63,13 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
     }
     return () => {};
   }, [selectedCountry]);
+
   // sets first selected country
   const handleStartClick = () => {
     if (unseenCountryList) {
       const randomKey = getRandomKey(unseenCountryList);
       setSelectedCountry({ name: randomKey, id: unseenCountryList[randomKey] });
+      centerCountry(unseenCountryList[randomKey]);
     }
   };
   const displayNewCountry = () => {
@@ -132,20 +87,43 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
         removeColorFromElement(document.getElementById(selectedCountry.id));
       }
       setSelectedCountry({ name: name, id: unseenCountryList[name] });
+      centerCountry(unseenCountryList[name]);
     }
   };
   const handleMultipleChoiceClick = (correct: boolean) => {
     if (correct) {
+      setCorrectChoice(correctChoice + 1);
     } else {
     }
     displayNewCountry();
   };
+  const trackerDisplay = () => {
+    if (!continent) {
+      return;
+    }
+    if (!unseenCountryList) {
+      return;
+    }
+    const totalCountries = Object.keys(countriesByContinent[continent]).length;
+    const unseenCounties = Object.keys(unseenCountryList).length;
+    if (totalCountries === unseenCounties) {
+      return;
+    }
+    return `${correctChoice}/${
+      Object.keys(countriesByContinent[continent]).length - Object.keys(unseenCountryList).length
+    }`;
+  };
+  console.log('render');
   return (
     <>
       <div
         className="map_container"
         onWheel={(e) => {
           onWheel(e);
+          setTranslate({
+            x: 0,
+            y: 0,
+          });
         }}
       >
         <ButtonDisplay
@@ -154,7 +132,9 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
           handleStartClick={handleStartClick}
           handleClick={displayNewCountry}
         />
+
         <GrabDrag
+          disabled
           translateSensitivity={3}
           translate={translate}
           setTranslate={setTranslate}
@@ -162,16 +142,16 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="-169.110266 83.600842 190.486279 -58.508473"
-            width="1009.6727"
-            height="665.96301"
-            onMouseOver={(e) => console.log(e)}
+            width={`${1009.6727 + 300}`}
+            // additional size
+            height={`${665.96301 + 200}`}
             style={{
-              transformOrigin: "0 0",
+              transformOrigin: '0 0',
               transform: `translate(${zoom.x}px, ${zoom.y}px) scale(${zoom.scale}`,
             }}
             id="map"
             className={`map
-            } ${!selectedCountry ? "start_haze" : ""}`}
+            } ${!selectedCountry ? 'start_haze' : ''}`}
           >
             {svgPaths.map((entry, index) => (
               <path d={entry.d} id={entry.id} key={entry.id} />
@@ -189,13 +169,11 @@ const WorldMap: React.FC<Props> = ({ continent }) => {
           </svg>
         </GrabDrag>
       </div>
-
+      <div id="tracker">{trackerDisplay()}</div>
       <MultipleChoice
         correctCountry={selectedCountry ? selectedCountry.name : null}
         continent={continent}
-        handleMultipleChoiceClick={(correct) =>
-          handleMultipleChoiceClick(correct)
-        }
+        handleMultipleChoiceClick={(correct) => handleMultipleChoiceClick(correct)}
       />
     </>
   );
