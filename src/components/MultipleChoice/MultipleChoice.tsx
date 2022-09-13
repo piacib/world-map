@@ -42,14 +42,14 @@ const MultipleChoice: React.FC<Props> = ({
   };
   const handleClick = (id: number, correct: boolean) => {
     setSelectedOption(id);
+
     setTimeout(() => {
+      setSelectedOption(null);
       handleMultipleChoiceClick(correct);
       // delay after click before rerender
     }, 500);
   };
-  const cleanUp = () => {
-    setSelectedOption(null);
-  };
+  console.log(selectedOption, order);
   return (
     <div className="multiplechoice_container">
       {order.map((x, idx) => (
