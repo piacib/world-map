@@ -12,6 +12,7 @@
     "@types/react": "^18.0.11",
     "@types/react-dom": "^18.0.5",
     "react": "^18.1.0",
+    "react-color-palette": "^6.2.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.7.3",
@@ -20,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "predeploy": "npm run build",
- "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
