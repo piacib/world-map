@@ -37,11 +37,14 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
       });
     }
   }, [continent, setZoom, translateSensitivity]);
+
+  // colors element on select
   useEffect(() => {
     if (selectedCountry) {
       colorElement(document.getElementById(selectedCountry.id));
     }
   }, [selectedCountry]);
+
   // circles small contries on select
   useEffect(() => {
     if (selectedCountry) {
@@ -72,6 +75,7 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
       centerCountry(unseenCountryList[randomKey]);
     }
   };
+
   const displayNewCountry = () => {
     if (!selectedCountry) {
       return;
@@ -86,10 +90,35 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
       if (selectedCountry) {
         removeColorFromElement(document.getElementById(selectedCountry.id));
       }
+
+      if (selectedCountry) {
+        const element = document.getElementById(unseenCountryList[name]);
+        let tempScale = zoom.scale;
+        if (element instanceof SVGPathElement) {
+          const elementWidth = element.getBBox().width;
+          const mapWidth = document
+            .getElementsByClassName('map_container')[0]
+            .getBoundingClientRect().width;
+          while (elementWidth * tempScale > mapWidth) {
+            tempScale -= 0.2;
+          }
+          console.log(zoom.scale, tempScale);
+        }
+        if (tempScale !== zoom.scale) {
+          setZoom({ ...zoom, scale: tempScale });
+        } else {
+          centerCountry(unseenCountryList[name]);
+        }
+      }
       setSelectedCountry({ name: name, id: unseenCountryList[name] });
-      centerCountry(unseenCountryList[name]);
     }
   };
+  useEffect(() => {
+    console.log('zoom changed');
+    if (selectedCountry) {
+      centerCountry(selectedCountry.id);
+    }
+  }, [zoom]);
   const handleMultipleChoiceClick = (correct: boolean) => {
     if (correct) {
       setCorrectChoice(correctChoice + 1);
@@ -113,7 +142,7 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
       Object.keys(countriesByContinent[continent]).length - Object.keys(unseenCountryList).length
     }`;
   };
-  console.log('render');
+
   return (
     <>
       <div
@@ -142,9 +171,9 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="-169.110266 83.600842 190.486279 -58.508473"
-            width={`${1009.6727 + 300}`}
+            width={`${1009.6727}`}
             // additional size
-            height={`${665.96301 + 200}`}
+            height={`${665.96301}`}
             style={{
               transformOrigin: '0 0',
               transform: `translate(${zoom.x}px, ${zoom.y}px) scale(${zoom.scale}`,
