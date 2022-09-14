@@ -6,6 +6,7 @@ interface Props {
   correctCountry: string | null;
   continent: ContinentType | null;
   handleMultipleChoiceClick: (correct: boolean) => void;
+  delay?: number;
 }
 const generateOptions = (
   continent: ContinentType | null,
@@ -30,6 +31,7 @@ const MultipleChoice: React.FC<Props> = ({
   correctCountry,
   continent,
   handleMultipleChoiceClick,
+  delay = 500,
 }) => {
   const [selectedOption, setSelectedOption] = useState<null | number>(null);
   // only recompute if [continent, correctCountry] changed
@@ -47,7 +49,7 @@ const MultipleChoice: React.FC<Props> = ({
       setSelectedOption(null);
       handleMultipleChoiceClick(correct);
       // delay after click before rerender
-    }, 500);
+    }, delay);
   };
 
   return (
