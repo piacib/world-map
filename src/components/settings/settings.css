@@ -1,0 +1,28 @@
+:root {
+  --gear-size: 2rem;
+}
+#settings_gear {
+  --transition: 0.4s;
+  width: var(--gear-size);
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  transition: var(--transition);
+  -webkit-transition: var(--transition);
+  -moz-transition: var(--transition);
+}
+.rotate {
+  --deg: 180deg;
+  transform: rotate(var(--deg));
+  -webkit-transform: rotate(var(--deg));
+  -ms-transform: rotate(var(--deg));
+}
+#settings_menu {
+  z-index: 2;
+  padding: 1rem;
+  background-color: rgba(85, 85, 250, 0.753);
+  border: 1px solid black;
+  position: absolute;
+  top: calc(var(--gear-size) * 2);
+  right: 0;
+}
