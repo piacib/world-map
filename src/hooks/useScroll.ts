@@ -6,11 +6,8 @@ type ZoomType = {
 };
 const useScroll = (
   initialZoom: number = 1,
-  zoomFactor: number = 0.5
-): [
-  [ZoomType, React.Dispatch<React.SetStateAction<ZoomType>>],
-  (e: React.WheelEvent) => void
-] => {
+  zoomFactor: number = 0.5,
+): [[ZoomType, React.Dispatch<React.SetStateAction<ZoomType>>], (e: React.WheelEvent) => void] => {
   const [zoom, setZoom] = useState<ZoomType>({
     scale: 1,
     x: 0,
