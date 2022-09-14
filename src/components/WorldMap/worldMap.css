@@ -23,6 +23,9 @@ path {
   justify-content: center;
   border: 3px solid green;
 }
+.map_container svg {
+  padding: 1000px;
+}
 p {
   text-align: center;
   margin: 0;
