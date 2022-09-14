@@ -9,7 +9,7 @@ interface Props {
 }
 const generateOptions = (
   continent: ContinentType | null,
-  correctCountry: string | null
+  correctCountry: string | null,
 ): [number[], string[]] => {
   if (!continent || !correctCountry) {
     return [[], []];
@@ -35,7 +35,7 @@ const MultipleChoice: React.FC<Props> = ({
   // only recompute if [continent, correctCountry] changed
   const [order, countryList] = useMemo(
     () => generateOptions(continent, correctCountry),
-    [continent, correctCountry]
+    [continent, correctCountry],
   );
   const colorOptionOnClick = (idx: number, x: number) => {
     return selectedOption === idx ? (x === 0 ? "correct" : "incorrect") : "";
@@ -49,6 +49,7 @@ const MultipleChoice: React.FC<Props> = ({
       // delay after click before rerender
     }, 500);
   };
+
   return (
     <div className="multiplechoice_container">
       {order.map((x, idx) => (
