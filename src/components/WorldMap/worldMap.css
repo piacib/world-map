@@ -24,7 +24,7 @@ path {
   border: 3px solid green;
 }
 .map_container svg {
-  padding: 1000px;
+  /* padding: 1000px; */
 }
 p {
   text-align: center;
@@ -43,4 +43,7 @@ p {
 #tracker {
   position: absolute;
   left: 0;
+}
+.map_container svg {
+  transition: transform 0.1s;
 }
