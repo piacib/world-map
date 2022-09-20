@@ -1,22 +1,23 @@
 export const zoomAddOn = (svgImage: SVGElement, svgContainer: HTMLDivElement) => {
-  var viewBox = { x: 0, y: 0, w: svgImage.clientWidth, h: svgImage.clientHeight };
+  console.log(svgImage.getAttribute("viewBox"));
+  let viewBox = { x: 0, y: 0, w: svgImage.clientWidth, h: svgImage.clientHeight };
   svgImage.setAttribute("viewBox", `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
   const svgSize = { w: svgImage.clientWidth, h: svgImage.clientHeight };
-  var isPanning = false;
-  var startPoint = { x: 0, y: 0 };
-  var endPoint = { x: 0, y: 0 };
-  var scale = 1;
+  let isPanning = false;
+  let startPoint = { x: 0, y: 0 };
+  let endPoint = { x: 0, y: 0 };
+  let scale = 1;
 
   svgContainer.onwheel = function (e) {
     e.preventDefault();
-    var w = viewBox.w;
-    var h = viewBox.h;
-    var mx = e.offsetX; //mouse x
-    var my = e.offsetY;
-    var dw = w * Math.sign(e.deltaY) * 0.05;
-    var dh = h * Math.sign(e.deltaY) * 0.05;
-    var dx = (dw * mx) / svgSize.w;
-    var dy = (dh * my) / svgSize.h;
+    let w = viewBox.w;
+    let h = viewBox.h;
+    let mx = e.offsetX; //mouse x
+    let my = e.offsetY;
+    let dw = w * Math.sign(e.deltaY) * 0.05;
+    let dh = h * Math.sign(e.deltaY) * 0.05;
+    let dx = (dw * mx) / svgSize.w;
+    let dy = (dh * my) / svgSize.h;
     viewBox = { x: viewBox.x + dx, y: viewBox.y + dy, w: viewBox.w - dw, h: viewBox.h - dh };
     scale = svgSize.w / viewBox.w;
     svgImage.setAttribute("viewBox", `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
@@ -30,9 +31,10 @@ export const zoomAddOn = (svgImage: SVGElement, svgContainer: HTMLDivElement) =>
   svgContainer.onmousemove = function (e) {
     if (isPanning) {
       endPoint = { x: e.x, y: e.y };
-      var dx = (startPoint.x - endPoint.x) / scale;
-      var dy = (startPoint.y - endPoint.y) / scale;
-      var movedViewBox = { x: viewBox.x + dx, y: viewBox.y + dy, w: viewBox.w, h: viewBox.h };
+      let dx = (startPoint.x - endPoint.x) / scale;
+      let dy = (startPoint.y - endPoint.y) / scale;
+      let movedViewBox = { x: viewBox.x + dx, y: viewBox.y + dy, w: viewBox.w, h: viewBox.h };
+
       svgImage.setAttribute(
         "viewBox",
         `${movedViewBox.x} ${movedViewBox.y} ${movedViewBox.w} ${movedViewBox.h}`,
@@ -43,9 +45,11 @@ export const zoomAddOn = (svgImage: SVGElement, svgContainer: HTMLDivElement) =>
   svgContainer.onmouseup = function (e) {
     if (isPanning) {
       endPoint = { x: e.x, y: e.y };
-      var dx = (startPoint.x - endPoint.x) / scale;
-      var dy = (startPoint.y - endPoint.y) / scale;
+      let dx = (startPoint.x - endPoint.x) / scale;
+      let dy = (startPoint.y - endPoint.y) / scale;
+
       viewBox = { x: viewBox.x + dx, y: viewBox.y + dy, w: viewBox.w, h: viewBox.h };
+
       svgImage.setAttribute("viewBox", `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
       isPanning = false;
     }
