@@ -6,10 +6,13 @@
 }
 .multiplechoice_container button {
   margin-left: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  /* background-color: rgb(13, 224, 224); */
 }
 .correct {
-  background-color: green;
+  background-color: rgb(71, 202, 76);
 }
 .incorrect {
-  background-color: red;
+  background-color: rgb(255, 17, 35);
 }
