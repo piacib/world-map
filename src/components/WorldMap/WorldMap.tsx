@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./worldMap.css";
 import { getRandomKey, colorElement, removeColorFromElement, centerCountry } from "./functions";
 import { Countries, ContinentType, countriesByContinent } from "../../countries";
 import ButtonDisplay from "./ButtonDisplay";
 import MultipleChoice from "../MultipleChoice/MultipleChoice";
 import { SelectedCountryType } from "./types";
-import Svg from "./Svg";
+import Svg from "../SVG/Svg";
 
 interface Props {
   continent: ContinentType | null;
@@ -16,10 +16,33 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
   const [unseenCountryList, setUnseenCountryList] = useState<Countries | null>(null);
   const [correctChoice, setCorrectChoice] = useState<number>(0);
 
+  const displayNewCountry = (CountryList?: Countries | null) => {
+    if (!selectedCountry) {
+      return;
+    }
+    if (!CountryList) {
+      CountryList = selectedCountry;
+    }
+    if (CountryList) {
+      const name = getRandomKey(CountryList);
+      setUnseenCountryList((current) => {
+        const copy = { ...CountryList };
+        delete copy[name];
+        return copy;
+      });
+      if (selectedCountry) {
+        removeColorFromElement(document.getElementById(selectedCountry.id));
+      }
+
+      setSelectedCountry({ name: name, id: CountryList[name] });
+    }
+  };
   // sets country list on continent select
   useEffect(() => {
     if (continent) {
+      console.log("continent change");
       setUnseenCountryList(countriesByContinent[continent]);
+      displayNewCountry(countriesByContinent[continent]);
     }
   }, [continent]);
 
@@ -32,6 +55,7 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
 
   // sets first selected country
   const handleStartClick = () => {
+    console.log("start", unseenCountryList);
     if (unseenCountryList) {
       const randomKey = getRandomKey(unseenCountryList);
       setSelectedCountry({ name: randomKey, id: unseenCountryList[randomKey] });
@@ -39,31 +63,14 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
     }
   };
 
-  const displayNewCountry = () => {
-    if (!selectedCountry) {
-      return;
-    }
-    if (unseenCountryList) {
-      const name = getRandomKey(unseenCountryList);
-      setUnseenCountryList((current) => {
-        const copy = { ...current };
-        delete copy[name];
-        return copy;
-      });
-      if (selectedCountry) {
-        removeColorFromElement(document.getElementById(selectedCountry.id));
-      }
-
-      setSelectedCountry({ name: name, id: unseenCountryList[name] });
-    }
-  };
   const handleMultipleChoiceClick = (correct: boolean) => {
     if (correct) {
       setCorrectChoice(correctChoice + 1);
     } else {
     }
-    displayNewCountry();
+    displayNewCountry(unseenCountryList);
   };
+
   const trackerDisplay = () => {
     if (!continent) {
       return;
@@ -82,13 +89,15 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
   };
   return (
     <>
-      <ButtonDisplay
-        continent={continent}
-        selectedCountry={selectedCountry}
-        handleStartClick={handleStartClick}
-        handleClick={displayNewCountry}
-      />
-      <Svg selectedCountry={selectedCountry} />
+      <div className="map_container">
+        <ButtonDisplay
+          continent={continent}
+          selectedCountry={selectedCountry}
+          handleStartClick={handleStartClick}
+          handleClick={displayNewCountry}
+        />
+        <Svg selectedCountry={selectedCountry} />
+      </div>
       <div id="tracker">{trackerDisplay()}</div>
       <MultipleChoice
         correctCountry={selectedCountry ? selectedCountry.name : null}

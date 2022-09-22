@@ -2,13 +2,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--burnt-amber);
+  margin-bottom: 0;
+  padding: 1rem 0;
+  border-radius: 5px;
 }
 .continent_options_menu li {
   list-style: none;
   padding: 0 10px;
   cursor: pointer;
   border-radius: 10px;
+  font-size: 1.4rem;
 }
 .continent_options_menu li:hover {
-  background-color: aquamarine;
+  background-color: var(--light-blue);
 }

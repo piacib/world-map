@@ -4,11 +4,11 @@
   align-items: center;
   justify-content: center;
 }
-.multiplechoice_container button {
+.multiplechoice_container * {
   margin-left: 0.5rem;
   font-size: 1.2rem;
   border-radius: 20px;
-  /* background-color: rgb(13, 224, 224); */
+  background-color: var(--burnt-amber);
 }
 .correct {
   background-color: rgb(71, 202, 76);

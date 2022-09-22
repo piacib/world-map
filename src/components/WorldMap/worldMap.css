@@ -5,15 +5,15 @@
   --animation-speed: 1s;
 }
 path {
-  fill: rgb(190, 189, 189);
-  stroke: black;
+  fill: var(--light-amber);
+  stroke: var(--ocean-blue);
   stroke-width: 0.1px;
 }
 .highlight {
-  fill: rgb(13, 224, 224);
+  fill: var(--light-blue);
 }
 .map_container {
-  margin: 1.5rem auto;
+  margin: 0.5rem auto;
   width: 100%;
   aspect-ratio: 1;
   overflow: hidden;
@@ -21,11 +21,8 @@ path {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid green;
 }
-.map_container svg {
-  /* padding: 1000px; */
-}
+
 p {
   text-align: center;
   margin: 0;
@@ -45,5 +42,7 @@ p {
   left: 0;
 }
 .map_container svg {
-  transition: transform 0.1s;
+  transition: transform 0.5s;
+  aspect-ratio: 1;
+  background-color: var(--ocean-blue);
 }
