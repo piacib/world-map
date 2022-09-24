@@ -9,6 +9,7 @@
   font-size: 1.2rem;
   border-radius: 20px;
   background-color: var(--burnt-amber);
+  max-width: 20rem;
 }
 .correct {
   background-color: rgb(71, 202, 76);
