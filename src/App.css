@@ -1,6 +1,6 @@
 :root {
   --ocean-blue: rgb(0, 94, 184);
-  --burnt-amber: rgb(184, 69, 9);
+  --burnt-amber: rgba(184, 70, 9, 0.801);
   --light-blue: #4c9eb5;
   --beige: #e7b68f;
   --light-amber: #e87f54;
