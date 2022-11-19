@@ -1,6 +1,13 @@
 export const zoomAddOn = (svgImage: SVGElement, svgContainer: HTMLDivElement) => {
-  console.log(svgImage.getAttribute("viewBox"));
+  console.log("zoomAddOn", svgImage.getAttribute("viewBox"));
   let viewBox = { x: 0, y: 0, w: svgImage.clientWidth, h: svgImage.clientHeight };
+  // added
+  const initialViewBox = svgImage.getAttribute("viewBox");
+  if (initialViewBox) {
+    const [x, y, width, height] = initialViewBox.split(" ");
+    viewBox = { x: Number(x), y: Number(y), w: Number(width), h: Number(height) };
+  }
+  // 
   svgImage.setAttribute("viewBox", `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
   const svgSize = { w: svgImage.clientWidth, h: svgImage.clientHeight };
   let isPanning = false;
@@ -44,6 +51,7 @@ export const zoomAddOn = (svgImage: SVGElement, svgContainer: HTMLDivElement) =>
 
   svgContainer.onmouseup = function (e) {
     if (isPanning) {
+      console.log("before", svgImage.getAttribute("viewBox"));
       endPoint = { x: e.x, y: e.y };
       let dx = (startPoint.x - endPoint.x) / scale;
       let dy = (startPoint.y - endPoint.y) / scale;
@@ -52,6 +60,7 @@ export const zoomAddOn = (svgImage: SVGElement, svgContainer: HTMLDivElement) =>
 
       svgImage.setAttribute("viewBox", `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
       isPanning = false;
+      console.log("after", svgImage.getAttribute("viewBox"));
     }
   };
 
