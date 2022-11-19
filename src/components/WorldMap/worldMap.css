@@ -1,13 +1,48 @@
+:root {
+  --zoom-initial: 1;
+  --zoom-final: 3;
+  --zoom-large: 2;
+  --animation-speed: 1s;
+}
 path {
-  fill: grey;
-  stroke: black;
+  fill: var(--light-amber);
+  stroke: var(--ocean-blue);
   stroke-width: 0.1px;
 }
 .highlight {
-  fill: aqua;
+  fill: var(--light-blue);
+}
+.map_container {
+  margin: 0.5rem auto;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-button {
-  position: fixed;
-  top: 0;
+p {
+  text-align: center;
+  margin: 0;
+}
+.start_button {
+  height: 2rem;
+  font-size: 1.4rem;
+  z-index: 1;
+  position: absolute;
+}
+.start_haze {
+  z-index: -1;
+  opacity: 0.2;
+}
+#tracker {
+  position: absolute;
+  left: 0;
+}
+.map_container svg {
+  transition: transform 0.5s;
+  aspect-ratio: 1;
+  background-color: var(--ocean-blue);
 }

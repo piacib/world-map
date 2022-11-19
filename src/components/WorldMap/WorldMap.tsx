@@ -1,82 +1,109 @@
-import React, { useEffect, useState } from "react";
-import MultipleChoice from "../MultipleChoice/MultipleChoice";
+import React, { useCallback, useEffect, useState } from "react";
 import "./worldMap.css";
-import { Countries, countries, getRandomKey } from "../../functions/countries";
-import SvgMap from "./SvgMap";
-const executeScroll = (element: HTMLElement | null) => {
-  if (element === null) {
-    return;
-  }
-  element.scrollIntoView({
-    behavior: "smooth",
-    block: "center",
-    inline: "center",
-  });
-};
-const colorElement = (element: HTMLElement | null) => {
-  if (element === null) {
-    return;
-  }
-  element.classList.add("highlight");
-};
-const removeColorFromElement = (element: HTMLElement | null) => {
-  if (element === null) {
-    return;
-  }
-  element.classList.remove("highlight");
-};
-const WorldMap = () => {
-  const [selectedCountryId, setSelectedCountryId] = useState<null | string>(
-    null
-  );
-  const [unseenCountryList, setUnseenCountryList] =
-    useState<Countries>(countries);
-  const handleStartClick = () => {
-    setSelectedCountryId(getRandomKey(unseenCountryList));
-  };
-  const selectChoice = (correct: boolean) => {
-    if (correct) {
-      console.log("correct!!");
-    }
-  };
-  const handleClick = () => {
-    if (!selectedCountryId) {
+import { getRandomKey, colorElement, removeColorFromElement, centerCountry } from "./functions";
+import { Countries, ContinentType, countriesByContinent } from "../../countries";
+import ButtonDisplay from "./ButtonDisplay";
+import MultipleChoice from "../MultipleChoice/MultipleChoice";
+import { SelectedCountryType } from "./types";
+import Svg from "../SVG/Svg";
+
+interface Props {
+  continent: ContinentType | null;
+  translateSensitivity?: number;
+}
+const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
+  const [selectedCountry, setSelectedCountry] = useState<null | SelectedCountryType>(null);
+  const [unseenCountryList, setUnseenCountryList] = useState<Countries | null>(null);
+  const [correctChoice, setCorrectChoice] = useState<number>(0);
+
+  const displayNewCountry = (CountryList?: Countries | null) => {
+    if (!selectedCountry) {
       return;
     }
-    const temp = unseenCountryList;
-    const country = getRandomKey(unseenCountryList);
-    delete temp[country];
-    setUnseenCountryList(temp);
-    removeColorFromElement(document.getElementById(selectedCountryId));
-    setSelectedCountryId(country);
-  };
-  useEffect(() => {
-    if (selectedCountryId) {
-      executeScroll(document.getElementById(selectedCountryId));
-      colorElement(document.getElementById(selectedCountryId));
+    if (!CountryList) {
+      CountryList = selectedCountry;
     }
-  }, [selectedCountryId]);
+    if (CountryList) {
+      const name = getRandomKey(CountryList);
+      setUnseenCountryList((current) => {
+        const copy = { ...CountryList };
+        delete copy[name];
+        return copy;
+      });
+      if (selectedCountry) {
+        removeColorFromElement(document.getElementById(selectedCountry.id));
+      }
+
+      setSelectedCountry({ name: name, id: CountryList[name] });
+    }
+  };
+  // sets country list on continent select
+  useEffect(() => {
+    if (continent) {
+      console.log("continent change");
+      setUnseenCountryList(countriesByContinent[continent]);
+      displayNewCountry(countriesByContinent[continent]);
+    }
+  }, [continent]);
+
+  // colors element on select
+  useEffect(() => {
+    if (selectedCountry) {
+      colorElement(document.getElementById(selectedCountry.id));
+    }
+  }, [selectedCountry]);
+
+  // sets first selected country
+  const handleStartClick = () => {
+    console.log("start", unseenCountryList);
+    if (unseenCountryList) {
+      const randomKey = getRandomKey(unseenCountryList);
+      setSelectedCountry({ name: randomKey, id: unseenCountryList[randomKey] });
+      centerCountry(unseenCountryList[randomKey]);
+    }
+  };
+
+  const handleMultipleChoiceClick = (correct: boolean) => {
+    if (correct) {
+      setCorrectChoice(correctChoice + 1);
+    } else {
+    }
+    displayNewCountry(unseenCountryList);
+  };
+
+  const trackerDisplay = () => {
+    if (!continent) {
+      return;
+    }
+    if (!unseenCountryList) {
+      return;
+    }
+    const totalCountries = Object.keys(countriesByContinent[continent]).length;
+    const unseenCounties = Object.keys(unseenCountryList).length;
+    if (totalCountries === unseenCounties) {
+      return;
+    }
+    return `${correctChoice}/${
+      Object.keys(countriesByContinent[continent]).length - Object.keys(unseenCountryList).length
+    }`;
+  };
   return (
     <>
-      {!selectedCountryId ? (
-        <button
-          onClick={() => {
-            handleStartClick();
-          }}
-        >
-          Start
-        </button>
-      ) : (
-        <button onClick={() => handleClick()}>New Country</button>
-      )}
-
-      <SvgMap />
-      {selectedCountryId && (
-        <MultipleChoice
-          selectChoice={(correct: boolean) => selectChoice(correct)}
-          countryId={selectedCountryId}
+      <div className="map_container">
+        <ButtonDisplay
+          continent={continent}
+          selectedCountry={selectedCountry}
+          handleStartClick={handleStartClick}
+          handleClick={displayNewCountry}
         />
-      )}
+        <Svg selectedCountry={selectedCountry} />
+      </div>
+      <div id="tracker">{trackerDisplay()}</div>
+      <MultipleChoice
+        correctCountry={selectedCountry ? selectedCountry.name : null}
+        continent={continent}
+        handleMultipleChoiceClick={(correct) => handleMultipleChoiceClick(correct)}
+      />
     </>
   );
 };

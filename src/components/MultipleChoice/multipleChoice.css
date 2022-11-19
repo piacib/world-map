@@ -1,0 +1,19 @@
+.multiplechoice_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.multiplechoice_container * {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  background-color: var(--burnt-amber);
+  max-width: 20rem;
+}
+.correct {
+  background-color: rgb(71, 202, 76);
+}
+.incorrect {
+  background-color: rgb(255, 17, 35);
+}
