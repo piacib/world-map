@@ -1,174 +1,112 @@
 import React, { useEffect, useState } from "react";
 import { svgPaths } from "../../svg";
-import { CircleCountryType } from "./types";
-type ViewBox = {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-};
-type StartPoint = { x: number; y: number };
-
-const useViewBox = (
-  svgWidth: number,
-  svgHeight: number,
-  scrollAdjustment = 0.05,
-): [
-  [ViewBox, React.Dispatch<React.SetStateAction<ViewBox>>],
-  {
-    Wheel: (e: React.WheelEvent) => void;
-    Down: (e: React.MouseEvent) => void;
-    Move: (e: React.MouseEvent) => void;
-    Up: (e: React.MouseEvent) => void;
-    Leave: (e: React.MouseEvent) => void;
-  },
-  string,
-  number,
-] => {
-  const [viewBox, setViewBox] = useState<ViewBox>({
-    x: 0,
-    y: 0,
-    w: svgWidth,
-    h: svgHeight,
-  });
-  const [isPanning, setIsPanning] = useState<Boolean>(false);
-  const [startPoint, setStartPoint] = useState<StartPoint>({
-    x: 0,
-    y: 0,
-  });
-  const { x, y, w, h } = viewBox;
-  const onMouseWheel = (e: React.WheelEvent) => {
-    // e.preventDefault();
-    const mx = e.nativeEvent.offsetX; // mouse x offset from svgContainer left
-    const my = e.nativeEvent.offsetY; // mouse Y offset from svgContainer top
-    console.log("onMouseWheel", mx, my);
-    //   //  e.deltaY positive for scroll up negative for scroll down
-    const dw = w * Math.sign(e.deltaY) * scrollAdjustment; // enlarge if scroll up minimmize if scroll down
-    const dh = h * Math.sign(e.deltaY) * scrollAdjustment; // enlarge if scroll up minimmize if scroll down
-    const dx = (dw * mx) / w; // the increased width to be displayed per scroll
-    const dy = (dh * my) / h; // the increased height to be displayed per scroll
-    setViewBox({
-      x: x + dx,
-      y: y + dy,
-      w: w - dw,
-      h: h - dh,
-    });
-  };
-  const onMouseDown = (e: React.MouseEvent) => {
-    setIsPanning(true);
-    setStartPoint({ x: e.nativeEvent.x, y: e.nativeEvent.y }); //sets mouse click position
-    console.log("onMouseDown", { x: e.nativeEvent.x, y: e.nativeEvent.y });
-  };
-  const onMouseMove = (e: React.MouseEvent) => {
-    if (isPanning) {
-      console.log("onMouseMove", startPoint);
-      const endPoint = { x: e.nativeEvent.x, y: e.nativeEvent.y }; // moves endpoint as mouse is dragged
-      console.log("b", startPoint, endPoint);
-      const dx = (startPoint.x - endPoint.x) / scale; //calculates change in position
-      const dy = (startPoint.y - endPoint.y) / scale; //calculates change in position
-      console.log("a", dx, dy);
-      setStartPoint(endPoint);
-      setViewBox({
-        x: viewBox.x + dx,
-        y: viewBox.y + dy,
-        w: viewBox.w,
-        h: viewBox.h,
-      });
-    }
-  };
-  const onMouseUp = (e: React.MouseEvent) => {
-    if (isPanning) {
-      const endPoint = { x: e.nativeEvent.x, y: e.nativeEvent.y };
-      const dx = (startPoint.x - endPoint.x) / scale;
-      const dy = (startPoint.y - endPoint.y) / scale;
-      setViewBox({
-        x: viewBox.x + dx,
-        y: viewBox.y + dy,
-        w: viewBox.w,
-        h: viewBox.h,
-      });
-
-      setIsPanning(false);
-    }
-  };
-  const onMouseLeave = (e: React.MouseEvent) => {
-    setIsPanning(false);
-  };
-  const viewBoxString = `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`;
-  const onMouse = {
-    Wheel: onMouseWheel,
-    Down: onMouseDown,
-    Move: onMouseMove,
-    Up: onMouseUp,
-    Leave: onMouseLeave,
-  };
-  const scale = svgWidth / w; //sets zoom multiplier
-
-  return [[viewBox, setViewBox], onMouse, viewBoxString, scale];
-};
-
+import { CircleCountryType, SelectedCountryType } from "./types";
+import useViewBox, { ViewBox } from "./useViewBox";
 interface Props {
-  svgHeight?: number;
-  svgWidth?: number;
+  selectedCountry: SelectedCountryType | null;
 }
 
-const SVGHeight = 800;
-const SVGWidth = 1008;
-
-const SvgDragAndZoom: React.FC<Props> = ({ svgHeight = SVGHeight, svgWidth = SVGWidth }) => {
-  const [circleStyle, setCircleStyle] = useState<CircleCountryType | null>(null);
-
-  const [[, setViewBox], onMouse, viewBoxString] = useViewBox(SVGHeight, SVGWidth);
-  return (
-    <>
-      <button
-        id="button"
-        onClick={() =>
-          setViewBox({
-            x: 0,
-            y: 0,
-            w: svgWidth,
-            h: svgHeight,
-          })
+const useSvgCircle = (selectedCountry: SelectedCountryType | null) => {
+  const [circleStyle, setCircleStyle] = useState<CircleCountryType>(noCircle);
+  // circles small contries on select
+  useEffect(() => {
+    if (selectedCountry) {
+      const element = document.getElementById(selectedCountry.id);
+      if (element instanceof SVGPathElement) {
+        const bBox = element.getBBox();
+        const longerLength = bBox.height < bBox.width ? bBox.width : bBox.height;
+        if (bBox.height < 15 || bBox.width < 15) {
+          setCircleStyle({
+            cx: bBox.x + bBox.width / 2,
+            cy: bBox.y + bBox.height / 2,
+            r: longerLength + 3,
+          });
+        } else {
+          setCircleStyle(noCircle);
         }
-      >
-        ClickMe
-      </button>
-      <span id="zoomValue">{1}</span>
+      }
+    }
+    return () => {};
+  }, [selectedCountry]);
 
-      <div
-        id="svgContainer"
-        onWheel={onMouse.Wheel}
-        onMouseDown={onMouse.Down}
-        onMouseMove={onMouse.Move}
-        onMouseUp={onMouse.Up}
-        onMouseLeave={onMouse.Leave}
+  return circleStyle;
+};
+const SVGHeight = 800;
+const SVGWidth = 800;
+const noCircle = {
+  cx: 0,
+  cy: 0,
+  r: 0,
+};
+const countryCenterPoint = (id: string) => {
+  const el = document.getElementById(id);
+  if (el instanceof SVGPathElement) {
+    const bBox = el.getBBox();
+    console.log("bBox", bBox);
+    return {
+      x: bBox.x + bBox.width / 2,
+      y: bBox.y + bBox.height / 2,
+    };
+  }
+};
+const centerViewBox = (id: string, viewBox: ViewBox) => {
+  const centerPoint = countryCenterPoint(id);
+  if (centerPoint) {
+    const newViewBox = {
+      x: centerPoint.x - viewBox.w / 2,
+      y: centerPoint.y - viewBox.h / 2,
+      w: viewBox.w,
+      h: viewBox.h,
+    };
+    return newViewBox;
+  }
+  return viewBox;
+};
+
+const SvgDragAndZoom: React.FC<Props> = ({ selectedCountry }) => {
+  const circleStyle = useSvgCircle(selectedCountry);
+
+  const [[viewBox, setViewBox], onMouse, viewBoxString] = useViewBox(SVGHeight, SVGWidth);
+
+  useEffect(() => {
+    console.log("new country");
+    if (!selectedCountry?.id) {
+      return;
+    }
+    const newViewBox = centerViewBox(selectedCountry.id, viewBox);
+    setViewBox(newViewBox);
+  }, [selectedCountry, setViewBox]);
+  return (
+    <div
+      id="svgContainer"
+      onWheel={onMouse.Wheel}
+      onMouseDown={onMouse.Down}
+      onMouseMove={onMouse.Move}
+      onMouseUp={onMouse.Up}
+      onMouseLeave={onMouse.Leave}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox={viewBoxString}
+        height={SVGHeight}
+        width={SVGWidth}
+        id="map"
+        className={`map ${!selectedCountry ? "start_haze" : ""}`}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox={viewBoxString}
-          height={svgHeight}
-          width={svgWidth}
-          id="map"
-          className={`map`}
-          // ${!selectedCountry ? "start_haze" : ""}`}
-        >
-          {svgPaths.map((entry, index) => (
-            <path d={entry.d} id={entry.id} key={entry.id} />
-          ))}
-          {circleStyle && (
-            <circle
-              id="small_country_circle"
-              cx={circleStyle.cx}
-              cy={circleStyle.cy}
-              r={circleStyle.r}
-              stroke="green"
-              fill="none"
-            />
-          )}
-        </svg>
-      </div>
-    </>
+        {svgPaths.map((entry, index) => (
+          <path d={entry.d} id={entry.id} key={entry.id} />
+        ))}
+
+        <circle
+          id="small_country_circle"
+          cx={circleStyle.cx}
+          cy={circleStyle.cy}
+          r={circleStyle.r}
+          stroke="green"
+          fill="none"
+        />
+      </svg>
+    </div>
   );
 };
 
