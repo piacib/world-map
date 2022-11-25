@@ -12,16 +12,6 @@ path {
 .highlight {
   fill: var(--light-blue);
 }
-.map_container {
-  margin: 0.5rem auto;
-  width: 100%;
-  aspect-ratio: 1;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 p {
   text-align: center;
@@ -41,8 +31,12 @@ p {
   position: absolute;
   left: 0;
 }
-.map_container svg {
-  transition: transform 0.5s;
-  aspect-ratio: 1;
+svg {
   background-color: var(--ocean-blue);
+}
+#svgContainer {
+  height: 800px;
+  width: 800px;
+  border: 1px solid black;
+  margin-top: 20px;
 }
