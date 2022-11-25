@@ -6,8 +6,6 @@ export type ViewBox = {
   h: number;
 };
 type StartPoint = { x: number; y: number };
-const mathRound = (num: number, sigfig: number = 2) =>
-  Math.round(num * (10 * sigfig)) / (10 * sigfig);
 const useViewBox = (
   svgWidth: number,
   svgHeight: number,
@@ -43,13 +41,13 @@ const useViewBox = (
     //  e.deltaY positive for scroll up negative for scroll down
     const dw = -w * Math.sign(e.deltaY) * scrollAdjustment; // enlarge if scroll up minimmize if scroll down
     const dh = -h * Math.sign(e.deltaY) * scrollAdjustment; // enlarge if scroll up minimmize if scroll down
-    const dx = (dw * mx) / w; // the adjustment in x to be displayed per scroll
-    const dy = (dh * my) / h; // the adjustment in y to be displayed per scroll
+    const dx = (dw * mx) / svgWidth; // the adjustment in x to be displayed per scroll
+    const dy = (dh * my) / svgHeight; // the adjustment in y to be displayed per scroll
     setViewBox({
-      x: mathRound(x + dx, 2),
-      y: mathRound(y + dy, 2),
-      w: mathRound(w - dw, 2),
-      h: mathRound(h - dh, 2),
+      x: x + dx,
+      y: y + dy,
+      w: w - dw,
+      h: h - dh,
     });
   };
   const onMouseDown = (e: React.MouseEvent) => {
@@ -96,7 +94,8 @@ const useViewBox = (
     Up: onMouseUp,
     Leave: onMouseLeave,
   };
-
+  // pass onMouse to svg container
+  // set svg viewbox={viewBoxString}
   return [[viewBox, setViewBox], onMouse, viewBoxString, scale];
 };
 export default useViewBox;
