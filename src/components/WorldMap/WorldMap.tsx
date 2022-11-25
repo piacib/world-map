@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./worldMap.css";
 import { getRandomKey, colorElement, removeColorFromElement, centerCountry } from "./functions";
 import { Countries, ContinentType, countriesByContinent } from "../../countries";
 import ButtonDisplay from "./ButtonDisplay";
 import MultipleChoice from "../MultipleChoice/MultipleChoice";
 import { SelectedCountryType } from "./types";
-import Svg from "../SVG/Svg";
+import SvgDragAndZoom from "./SvgDragAndZoom";
 
 interface Props {
   continent: ContinentType | null;
@@ -87,17 +87,16 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
       Object.keys(countriesByContinent[continent]).length - Object.keys(unseenCountryList).length
     }`;
   };
+
   return (
     <>
-      <div className="map_container">
-        <ButtonDisplay
-          continent={continent}
-          selectedCountry={selectedCountry}
-          handleStartClick={handleStartClick}
-          handleClick={displayNewCountry}
-        />
-        <Svg selectedCountry={selectedCountry} />
-      </div>
+      <ButtonDisplay
+        continent={continent}
+        selectedCountry={selectedCountry}
+        handleStartClick={handleStartClick}
+        handleClick={displayNewCountry}
+      />
+      <SvgDragAndZoom selectedCountry={selectedCountry} />
       <div id="tracker">{trackerDisplay()}</div>
       <MultipleChoice
         correctCountry={selectedCountry ? selectedCountry.name : null}
