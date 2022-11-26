@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { ViewBox, StartPoint } from "./types";
-const useViewBox = (
-  svgWidth: number,
-  svgHeight: number,
+interface Props {
+  svgWidth: number;
+  svgHeight: number;
+  maxScale?: number;
+  minScale?: number;
+  scrollAdjustment?: number;
+}
+const useViewBox = ({
+  svgWidth,
+  svgHeight,
+  maxScale,
+  minScale,
   scrollAdjustment = 0.05,
-): [
+}: Props): [
   [ViewBox, React.Dispatch<React.SetStateAction<ViewBox>>],
   {
     Wheel: (e: React.WheelEvent) => void;
@@ -37,6 +46,14 @@ const useViewBox = (
     const dh = -h * Math.sign(e.deltaY) * scrollAdjustment; // enlarge if scroll up minimmize if scroll down
     const dx = (dw * mx) / svgWidth; // the adjustment in x to be displayed per scroll
     const dy = (dh * my) / svgHeight; // the adjustment in y to be displayed per scroll
+    console.log(maxScale, scale, minScale);
+    if (maxScale && maxScale >= scale && dw < 0) {
+      return;
+    }
+    if (minScale && minScale <= scale && dw > 0) {
+      return;
+    }
+
     setViewBox({
       x: x + dx,
       y: y + dy,
