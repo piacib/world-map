@@ -5,7 +5,7 @@ import { Countries, ContinentType, countriesByContinent } from "../../countries"
 import ButtonDisplay from "./ButtonDisplay";
 import MultipleChoice from "../MultipleChoice/MultipleChoice";
 import { SelectedCountryType } from "./types";
-import SvgDragAndZoom from "./SvgDragAndZoom";
+import SvgDragAndZoom from "../SvgDragAndZoom";
 
 interface Props {
   continent: ContinentType | null;
