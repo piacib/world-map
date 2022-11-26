@@ -5,12 +5,12 @@
   --animation-speed: 1s;
 }
 path {
-  fill: var(--light-amber);
-  stroke: var(--ocean-blue);
-  stroke-width: 0.1px;
+  fill: var(--color-secondary);
+  stroke: var(--color-accent);
+  stroke-width: 0.3px;
 }
 .highlight {
-  fill: var(--light-blue);
+  fill: var(--color-highlight);
 }
 
 p {
@@ -32,7 +32,8 @@ p {
   left: 0;
 }
 svg {
-  background-color: var(--ocean-blue);
+  background-color: var(--color-main);
+  border: 2px solid var(--color-accent);
 }
 #svgContainer {
   height: 800px;

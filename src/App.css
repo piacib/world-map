@@ -1,10 +1,12 @@
 :root {
-  --ocean-blue: rgb(0, 94, 184);
-  --burnt-amber: rgba(184, 70, 9, 0.801);
-  --light-blue: #4c9eb5;
-  --beige: #e7b68f;
-  --light-amber: #e87f54;
-  --font-color: whitesmoke;
+  --color-font: rgb(243, 239, 224);
+  --color-secondary: rgb(67, 66, 66);
+  --color-main: rgb(34, 34, 34);
+  --color-accent: rgb(34, 163, 159);
+  --color-highlight: #4c9eb5;
+}
+body {
+  background-color: var(--color-main);
 }
 .app {
   width: 100%;
@@ -28,4 +30,5 @@ li {
 button {
   font-family: "ABeeZee", sans-serif;
   color: var(--font-color);
+  color: var(--color-font);
 }

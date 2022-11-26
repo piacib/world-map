@@ -3,12 +3,14 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-top: 1rem;
 }
 .multiplechoice_container * {
   margin-left: 0.5rem;
   font-size: 1.2rem;
   border-radius: 20px;
-  background-color: var(--burnt-amber);
+  background-color: var(--color-accent);
+  color: var(--color-main);
   max-width: 20rem;
 }
 .correct {

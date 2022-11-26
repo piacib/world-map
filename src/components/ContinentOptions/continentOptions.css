@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--burnt-amber);
+  background-color: var(--color-accent);
   margin-bottom: 0;
   padding: 1rem 0;
   border-radius: 5px;
@@ -13,7 +13,9 @@
   cursor: pointer;
   border-radius: 10px;
   font-size: 1.4rem;
+  color: var(--color-main);
 }
 .continent_options_menu li:hover {
-  background-color: var(--light-blue);
+  background-color: var(--color-secondary);
+  color: var(--color-font);
 }
