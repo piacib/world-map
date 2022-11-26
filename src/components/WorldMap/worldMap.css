@@ -7,7 +7,7 @@
 path {
   fill: var(--color-secondary);
   stroke: var(--color-accent);
-  stroke-width: 0.3px;
+  stroke-width: 0.4px;
 }
 .highlight {
   fill: var(--color-highlight);
