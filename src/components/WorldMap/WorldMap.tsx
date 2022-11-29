@@ -90,13 +90,15 @@ const WorldMap: React.FC<Props> = ({ continent, translateSensitivity = 3 }) => {
 
   return (
     <>
+      <SvgDragAndZoom selectedCountry={selectedCountry}>
+
       <ButtonDisplay
         continent={continent}
         selectedCountry={selectedCountry}
         handleStartClick={handleStartClick}
         handleClick={displayNewCountry}
       />
-      <SvgDragAndZoom selectedCountry={selectedCountry} />
+      </SvgDragAndZoom>
       <div id="tracker">{trackerDisplay()}</div>
       <MultipleChoice
         correctCountry={selectedCountry ? selectedCountry.name : null}
