@@ -9,7 +9,7 @@ body {
   background-color: var(--color-main);
 }
 .app {
-  width: 100%;
+  width: 95%;
   max-width: 50rem;
   margin: 0 auto;
   position: relative;
