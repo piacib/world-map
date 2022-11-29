@@ -24,6 +24,7 @@ const countryCenterPoint = (id: string) => {
     };
   }
 };
+
 const centerViewBox = (id: string, viewBox: ViewBox) => {
   const centerPoint = countryCenterPoint(id);
   if (centerPoint) {
@@ -37,17 +38,15 @@ const centerViewBox = (id: string, viewBox: ViewBox) => {
   }
   return viewBox;
 };
-
 const SvgDragAndZoom: React.FC<Props> = ({ selectedCountry, children = [] }) => {
   const circleStyle = useSvgCircle(selectedCountry);
-  const windowSize = useWindowSize();
-  const [[viewBox, setViewBox], onMouse, viewBoxString] = useViewBox({
+  const { viewBox, setViewBox, onMouse, viewBoxString } = useViewBox({
     svgWidth: SVGWidth,
     svgHeight: SVGHeight,
     maxScale: 1,
     minScale: 25,
   });
-  console.log("windowSize", windowSize);
+
   useEffect(() => {
     console.log("new country");
     if (!selectedCountry?.id) {
@@ -55,7 +54,7 @@ const SvgDragAndZoom: React.FC<Props> = ({ selectedCountry, children = [] }) => 
     }
     const newViewBox = centerViewBox(selectedCountry.id, viewBox);
     setViewBox(newViewBox);
-  }, [selectedCountry, setViewBox]);
+  }, [selectedCountry]);
   return (
     <div
       id="svgContainer"
