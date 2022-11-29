@@ -4,8 +4,10 @@ import { SelectedCountryType } from "../WorldMap/types";
 import useViewBox from "./hooks/useViewBox";
 import { ViewBox } from "./hooks/useViewBox/types";
 import { useSvgCircle } from "./hooks/useSvgCircle";
+import { useWindowSize } from "./hooks/useWindowSize";
 interface Props {
   selectedCountry: SelectedCountryType | null;
+  children?: JSX.Element[] | JSX.Element;
 }
 
 const SVGHeight = 800;
@@ -36,11 +38,16 @@ const centerViewBox = (id: string, viewBox: ViewBox) => {
   return viewBox;
 };
 
-const SvgDragAndZoom: React.FC<Props> = ({ selectedCountry }) => {
+const SvgDragAndZoom: React.FC<Props> = ({ selectedCountry, children = [] }) => {
   const circleStyle = useSvgCircle(selectedCountry);
-
-  const [[viewBox, setViewBox], onMouse, viewBoxString] = useViewBox(SVGHeight, SVGWidth);
-
+  const windowSize = useWindowSize();
+  const [[viewBox, setViewBox], onMouse, viewBoxString] = useViewBox({
+    svgWidth: SVGWidth,
+    svgHeight: SVGHeight,
+    maxScale: 1,
+    minScale: 25,
+  });
+  console.log("windowSize", windowSize);
   useEffect(() => {
     console.log("new country");
     if (!selectedCountry?.id) {
@@ -58,6 +65,7 @@ const SvgDragAndZoom: React.FC<Props> = ({ selectedCountry }) => {
       onMouseUp={onMouse.Up}
       onMouseLeave={onMouse.Leave}
     >
+      {children ? children : null}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox={viewBoxString}
