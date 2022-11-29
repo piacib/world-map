@@ -18,10 +18,20 @@ p {
   margin: 0;
 }
 .start_button {
-  height: 2rem;
-  font-size: 1.4rem;
+  /* height: 2rem; */
+  font-size: 3rem;
+  background: var(--color-accent);
+  color: var(--color-main);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
   z-index: 1;
+  /* centering */
   position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
 }
 .start_haze {
   z-index: -1;
