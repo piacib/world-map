@@ -15,5 +15,5 @@ code {
   flex-direction: column;
 }
 html {
-  overflow: hidden;
+  overflow-x: hidden;
 }
