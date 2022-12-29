@@ -4,11 +4,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Worldle from "./components/Wordle";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "worldle",
+    element: <Worldle />,
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
