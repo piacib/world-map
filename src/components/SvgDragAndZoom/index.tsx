@@ -4,7 +4,6 @@ import { SelectedCountryType } from "../WorldMap/types";
 import useViewBox from "./hooks/useViewBox";
 import { ViewBox } from "./hooks/useViewBox/types";
 import { useSvgCircle } from "./hooks/useSvgCircle";
-import { useWindowSize } from "./hooks/useWindowSize";
 interface Props {
   selectedCountry: SelectedCountryType | null;
   children?: JSX.Element[] | JSX.Element;
