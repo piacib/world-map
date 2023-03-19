@@ -35,7 +35,6 @@ const generateOptions = (
     name: country,
     isCorrect: country === correctCountry,
   }));
-  // correctCountry must be first to match x === 0 in handleCLick
   return optionsReturn;
 };
 const highlightCorrectEl = (correctCountry: string | null) => {
@@ -92,6 +91,7 @@ const MultipleChoice: React.FC<Props> = ({
           <button
             className={colorOptionOnClick(idx, country.isCorrect, selectedOption)}
             id={country.name}
+            key={country.name}
             onClick={() => {
               handleClick(idx, country.isCorrect);
             }}
