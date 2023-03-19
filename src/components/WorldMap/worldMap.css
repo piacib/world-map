@@ -45,8 +45,6 @@ svg {
   background-color: var(--color-main);
 }
 #svgContainer {
-  /* height: 800px;
-  width: 800px; */
   border: 1px solid var(--color-accent);
   margin-top: 20px;
   overflow: hidden;
