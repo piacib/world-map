@@ -12,8 +12,7 @@ export const continents = [
 ] as const;
 export type ContinentType = typeof continents[number];
 // type guard function to see if string is in continent
-export const isContinent = (x: any): x is ContinentType =>
-  continents.includes(x);
+export const isContinent = (x: any): x is ContinentType => continents.includes(x);
 
 export interface Countries {
   [key: string]: string;

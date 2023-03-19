@@ -48,4 +48,5 @@ svg {
   margin-top: 20px;
   overflow: hidden;
   aspect-ratio: 1;
+  position: relative;
 }
