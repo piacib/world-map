@@ -11,9 +11,12 @@ interface Props {
 const generateOptions = (
   continent: ContinentType | null,
   correctCountry: string | null,
-): [number[], string[]] => {
+): {
+  name: string;
+  isCorrect: boolean;
+}[] => {
   if (!continent || !correctCountry) {
-    return [[], []];
+    return [];
   }
   // Number of choices in multiplechoice
   const order = randomNumberOrder(4);
@@ -24,9 +27,38 @@ const generateOptions = (
     arr: tempArr,
     outputLength: 3,
   });
+  const options = [correctCountry, ...incorrectOptions];
+  const randomizedOptions = order.map((index) => options[index]);
+
+  const optionsReturn = randomizedOptions.map((country) => ({
+    name: country,
+    isCorrect: country === correctCountry,
+  }));
   // correctCountry must be first to match x === 0 in handleCLick
-  return [order, [correctCountry, ...incorrectOptions]];
+  return optionsReturn;
 };
+const highlightCorrectEl = (correctCountry: string | null) => {
+  if (correctCountry) {
+    const correctEl = document.getElementById(correctCountry);
+    if (correctEl) {
+      console.log("list", correctEl.classList);
+      correctEl.classList.add("correct");
+    }
+  }
+};
+const unhighlightCorrectEl = (correctCountry: string | null) => {
+  if (correctCountry) {
+    const correctEl = document.getElementById(correctCountry);
+    if (correctEl) {
+      console.log("list", correctEl.classList);
+      correctEl.classList.remove("correct");
+    }
+  }
+};
+const colorOptionOnClick = (idx: number, isCorrect: boolean, selectedOption: null | number) => {
+  return selectedOption === idx ? (isCorrect ? "correct" : "incorrect") : "";
+};
+
 const MultipleChoice: React.FC<Props> = ({
   correctCountry,
   continent,
@@ -35,33 +67,32 @@ const MultipleChoice: React.FC<Props> = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState<null | number>(null);
   // only recompute if [continent, correctCountry] changed
-  const [order, countryList] = useMemo(
+  const countryList = useMemo(
     () => generateOptions(continent, correctCountry),
     [continent, correctCountry],
   );
-  const colorOptionOnClick = (idx: number, x: number) => {
-    return selectedOption === idx ? (x === 0 ? "correct" : "incorrect") : "";
-  };
   const handleClick = (id: number, correct: boolean) => {
     setSelectedOption(id);
-
+    highlightCorrectEl(correctCountry);
     setTimeout(() => {
       setSelectedOption(null);
       handleMultipleChoiceClick(correct);
+      unhighlightCorrectEl(correctCountry);
+
       // delay after click before rerender
     }, delay);
   };
-
   return (
     <div className="multiplechoice_container">
-      {order.map((x, idx) => (
+      {countryList.map((country, idx) => (
         <button
-          className={colorOptionOnClick(idx, x)}
+          className={colorOptionOnClick(idx, country.isCorrect, selectedOption)}
+          id={country.name}
           onClick={() => {
-            handleClick(idx, x === 0 ? true : false);
+            handleClick(idx, country.isCorrect);
           }}
         >
-          {countryList[x]}
+          {country.name}
         </button>
       ))}
     </div>
