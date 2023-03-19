@@ -7,7 +7,6 @@ export const zoomAddOn = (svgImage: SVGElement, svgContainer: HTMLDivElement) =>
     const [x, y, width, height] = initialViewBox.split(" ");
     viewBox = { x: Number(x), y: Number(y), w: Number(width), h: Number(height) };
   }
-  // 
   svgImage.setAttribute("viewBox", `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
   const svgSize = { w: svgImage.clientWidth, h: svgImage.clientHeight };
   let isPanning = false;
