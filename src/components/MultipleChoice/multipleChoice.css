@@ -5,6 +5,12 @@
   justify-content: center;
   margin-top: 1rem;
 }
+@media screen and (max-width: 425px) {
+  .multiplechoice_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
 .multiplechoice_container * {
   margin-left: 0.5rem;
   font-size: 1.2rem;
