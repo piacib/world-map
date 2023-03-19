@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 import { ViewBox, StartPoint } from "./types";
+
+function preventScroll(e: React.WheelEvent) {
+  e.stopPropagation();
+
+  return false;
+}
+
 interface Props {
   svgWidth: number;
   svgHeight: number;
@@ -48,6 +55,7 @@ const useViewBox = ({
   const { x, y, w, h } = viewBox;
   const scale = size.w / w; //sets zoom multiplier
   const onMouseWheel = (e: React.WheelEvent) => {
+    preventScroll(e);
     const mx = e.nativeEvent.offsetX; // mouse x offset from svgContainer left
     const my = e.nativeEvent.offsetY; // mouse Y offset from svgContainer top
     //  e.deltaY positive for scroll up negative for scroll down
