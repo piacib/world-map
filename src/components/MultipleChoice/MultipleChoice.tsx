@@ -7,6 +7,7 @@ interface Props {
   continent: ContinentType | null;
   handleMultipleChoiceClick: (correct: boolean) => void;
   delay?: number;
+  children?: JSX.Element;
 }
 const generateOptions = (
   continent: ContinentType | null,
@@ -64,6 +65,7 @@ const MultipleChoice: React.FC<Props> = ({
   continent,
   handleMultipleChoiceClick,
   delay = 500,
+  children,
 }) => {
   const [selectedOption, setSelectedOption] = useState<null | number>(null);
   // only recompute if [continent, correctCountry] changed
@@ -83,18 +85,21 @@ const MultipleChoice: React.FC<Props> = ({
     }, delay);
   };
   return (
-    <div className="multiplechoice_container">
-      {countryList.map((country, idx) => (
-        <button
-          className={colorOptionOnClick(idx, country.isCorrect, selectedOption)}
-          id={country.name}
-          onClick={() => {
-            handleClick(idx, country.isCorrect);
-          }}
-        >
-          {country.name}
-        </button>
-      ))}
+    <div className="tracker_choice_container">
+      {children ? children : null}
+      <div className="multiplechoice_container">
+        {countryList.map((country, idx) => (
+          <button
+            className={colorOptionOnClick(idx, country.isCorrect, selectedOption)}
+            id={country.name}
+            onClick={() => {
+              handleClick(idx, country.isCorrect);
+            }}
+          >
+            {country.name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
