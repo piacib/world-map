@@ -1,7 +1,13 @@
 import React, { useMemo, useState } from "react";
 import "./multipleChoice.css";
-import { randomNumberOrder, randomEntriesNonRepeating } from "./functions";
-import { countriesByContinent, ContinentType } from "../../countries";
+import {
+  generateOptions,
+  highlightCorrectEl,
+  unhighlightCorrectEl,
+  colorOptionOnClick,
+} from "./functions";
+import { ContinentType } from "../../countries";
+
 interface Props {
   correctCountry: string | null;
   continent: ContinentType | null;
@@ -9,55 +15,6 @@ interface Props {
   delay?: number;
   children?: JSX.Element;
 }
-const generateOptions = (
-  continent: ContinentType | null,
-  correctCountry: string | null,
-): {
-  name: string;
-  isCorrect: boolean;
-}[] => {
-  if (!continent || !correctCountry) {
-    return [];
-  }
-  // Number of choices in multiplechoice
-  const order = randomNumberOrder(4);
-  const tempArr = Object.keys(countriesByContinent[continent]);
-  const correctCountryIndex = tempArr.indexOf(correctCountry);
-  tempArr.splice(correctCountryIndex, 1);
-  const incorrectOptions = randomEntriesNonRepeating({
-    arr: tempArr,
-    outputLength: 3,
-  });
-  const options = [correctCountry, ...incorrectOptions];
-  const randomizedOptions = order.map((index) => options[index]);
-
-  const optionsReturn = randomizedOptions.map((country) => ({
-    name: country,
-    isCorrect: country === correctCountry,
-  }));
-  return optionsReturn;
-};
-const highlightCorrectEl = (correctCountry: string | null) => {
-  if (correctCountry) {
-    const correctEl = document.getElementById(correctCountry);
-    if (correctEl) {
-      console.log("list", correctEl.classList);
-      correctEl.classList.add("correct");
-    }
-  }
-};
-const unhighlightCorrectEl = (correctCountry: string | null) => {
-  if (correctCountry) {
-    const correctEl = document.getElementById(correctCountry);
-    if (correctEl) {
-      console.log("list", correctEl.classList);
-      correctEl.classList.remove("correct");
-    }
-  }
-};
-const colorOptionOnClick = (idx: number, isCorrect: boolean, selectedOption: null | number) => {
-  return selectedOption === idx ? (isCorrect ? "correct" : "incorrect") : "";
-};
 
 const MultipleChoice: React.FC<Props> = ({
   correctCountry,
