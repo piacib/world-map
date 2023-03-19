@@ -15,7 +15,6 @@ interface Props {
   delay?: number;
   children?: JSX.Element;
 }
-
 const MultipleChoice: React.FC<Props> = ({
   correctCountry,
   continent,
@@ -36,7 +35,6 @@ const MultipleChoice: React.FC<Props> = ({
       setSelectedOption(null);
       handleMultipleChoiceClick(correct);
       unhighlightCorrectEl(correctCountry);
-
       // delay after click before rerender
     }, delay);
   };
